@@ -1,12 +1,12 @@
-
-import './App.css';
+import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TableCoins from './components/TableCoins';
-import Navbar from './components/Navbar'
+import TableCoins from "./components/TableCoins";
+import Navbar from "./components/Navbar";
+import SignUp from "./components/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -26,11 +26,10 @@ function App() {
     getData();
   }, []);
 
-
   return (
-
     <>
       <Navbar></Navbar>
+      <SignUp></SignUp>
 
       <div className="container">
         <div className="row">
@@ -39,7 +38,8 @@ function App() {
             placeholder="Search a Coin"
             className="form-control bg-dark text-light border-0 mt-4 text-center"
             autoFocus
-            onChange={(e) => setSearch(e.target.value)} />
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
           <TableCoins coins={coins} search={search} />
         </div>
