@@ -104,7 +104,7 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ textAlign: 'right', flexGrow: 1 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar sx={{ bgcolor: lightBlue[500] }}>N</Avatar>
               <Typography

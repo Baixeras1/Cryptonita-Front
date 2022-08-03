@@ -1,6 +1,6 @@
 
 .App {
-  text-align: right;
+  text-align: center;
 }
 
 .App-logo {
@@ -19,9 +19,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  z-index: 100;
 }
 
 .App-link {
