@@ -1,9 +1,9 @@
 
 import './App.css';
 import axios from "axios";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import TableCoins from './components/TableCoins';
-
+import Navbar from './components/Navbar'
 
 function App() {
 
@@ -28,8 +28,11 @@ function App() {
 
 
   return (
-  
-    <div className="container">
+
+    <>
+      <Navbar></Navbar>
+
+      <div className="container">
         <div className="row">
           <input
             type="text"
@@ -41,6 +44,7 @@ function App() {
           <TableCoins coins={coins} search={search} />
         </div>
       </div>
+    </>
   );
 }
 
