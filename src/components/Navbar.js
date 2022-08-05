@@ -11,8 +11,10 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { lightBlue } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 const pages = ["Inicio", "Monedero", "Historial", "Login"];
+
 const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
 
 const ResponsiveAppBar = () => {
@@ -55,7 +57,6 @@ const ResponsiveAppBar = () => {
           >
             Cryptonita
           </Typography>
-
           <Box
             sx={{
               flexGrow: 1,
@@ -97,6 +98,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
+
           <Box
             sx={{
               justifyContent: "center",
@@ -105,16 +107,21 @@ const ResponsiveAppBar = () => {
             }}
           >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link to={`/${page}`}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                  }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
-
           <Box sx={{ textAlign: "right", flexGrow: 1 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar sx={{ bgcolor: lightBlue[500] }}>N</Avatar>
