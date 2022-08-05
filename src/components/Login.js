@@ -1,5 +1,5 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import "antd/dist/antd.css";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,7 +8,6 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -34,6 +33,10 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [password, setPassword] = React.useState("");
+  const [leyenda, setLeyenda] = React.useState("");
+  const [errorpassword, setErrorPassword] = React.useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -86,10 +89,23 @@ export default function SignIn() {
               id="email"
               label="Email"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
             />
             <TextField
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (password.length > 7) {
+                  setErrorPassword(true);
+                  setLeyenda("La contraseña tiene mas de 8 caracteres");
+                } else {
+                  setErrorPassword(false);
+                  setLeyenda("");
+                }
+              }}
+              error={errorpassword}
+              helperText={leyenda}
               margin="normal"
               required
               fullWidth
@@ -101,7 +117,7 @@ export default function SignIn() {
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Recordarme"
             />
             <Button
               type="submit"
@@ -118,7 +134,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/Registrarse" variant="body2">
                   {"No tienes una cuenta? Registrarse"}
                 </Link>
               </Grid>

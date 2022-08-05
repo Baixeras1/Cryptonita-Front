@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { lightBlue } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-const pages = ["Inicio", "Monedero", "Historial", "Login"];
+const pages = ["Inicio", "Wallet", "Historial", "Login"];
 
 const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
 

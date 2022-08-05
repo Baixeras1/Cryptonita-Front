@@ -5,12 +5,14 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import Registrarse from "./components/Registrarse";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/Login" element={<Login />} />
+      <Route path="/Registrarse" element={<Registrarse />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
