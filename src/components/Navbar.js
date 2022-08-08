@@ -38,7 +38,12 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="100%">
+      <Container
+        maxWidth="100%"
+        sx={{
+          backgroundColor: "black",
+        }}
+      >
         <Toolbar disableGutters>
           <Typography
             variant="h4"
