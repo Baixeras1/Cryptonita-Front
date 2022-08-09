@@ -122,6 +122,7 @@ const ResponsiveAppBar = () => {
                     my: 2,
                     color: "white",
                     display: "block",
+                    fontFamily: "Centra",
                   }}
                 >
                   {page}

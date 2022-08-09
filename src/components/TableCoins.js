@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import React from "react";
 import Coin from "./Coin";
-import ReactPaginate from "react-paginate";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 
 const limitPage = 9;
 
 const TableCoins = ({ coins }) => {
   const [items, setItems] = useState([]);
+  const [page, setPage] = React.useState(1);
 
   useEffect(() => {
     setItems(
@@ -25,9 +27,10 @@ const TableCoins = ({ coins }) => {
   let totalPages = Math.ceil(totalSize / limitPage);
   let currentPage = 0;
 
-  const handlePageClick = async (data) => {
-    console.log(data.selected);
-    currentPage = data.selected;
+  const handlePageClick = async (event, value) => {
+    console.log(value);
+    currentPage = value - 1;
+    setPage(value);
 
     setItems(
       coins.slice(
@@ -66,25 +69,23 @@ const TableCoins = ({ coins }) => {
           </Table>
         </PortfolioTable>
 
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          pageCount={totalPages}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={3}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center mt-5"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
+        <Stack spacing={2}>
+          <Pagination
+            color="primary"
+            variant="outlined"
+            count={totalPages}
+            page={page}
+            onChange={handlePageClick}
+            showFirstButton
+            showLastButton
+            sx={{
+              justifyContent: "center",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              marginTop: 2,
+            }}
+          />
+        </Stack>
       </Content>
     </Wrapper>
   );
