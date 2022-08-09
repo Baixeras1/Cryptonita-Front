@@ -5,8 +5,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import "./Pagination.css";
-import { blue, purple, red } from "@mui/material/colors";
+import { blue, red } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 
 const limitPage = 9;

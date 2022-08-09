@@ -10,8 +10,9 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { lightBlue } from "@mui/material/colors";
+import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+import CustomizedMenus from "./MenuUsuario";
 
 const pages = ["Inicio", "Wallet", "Historial", "Login"];
 
@@ -132,45 +133,11 @@ const ResponsiveAppBar = () => {
           </Box>
           <Box sx={{ textAlign: "right", flexGrow: 1 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar sx={{ bgcolor: lightBlue[500] }}>N</Avatar>
-              <Typography
-                variant="h6"
-                fontFamily="Arial"
-                noWrap
-                component="a"
-                href="/"
-                sx={{
-                  flexGrow: 1,
-                  marginLeft: 3,
-                  color: "white",
-                  textDecoration: "none",
-                }}
-              >
-                Usuario
-              </Typography>
+              <Stack direction="row" spacing={2}>
+                <Avatar src="../usuario1.jpg" />
+              </Stack>
+              <CustomizedMenus></CustomizedMenus>
             </IconButton>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>
