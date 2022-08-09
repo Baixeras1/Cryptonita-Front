@@ -14,11 +14,19 @@ export default class Skills extends Component {
   getGames = () => {
     axios
       .get(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=marketcapdesc&perpage=100&page=1"
+        "http://localhost:8080/api/assets/getAll", {
+          headers: { 
+            'Access-Control-Allow-Origin' : '*',
+          },
+          auth: {
+            username: 'sergio.bernal',
+            password: '1234'
+          }
+        }
       )
       .then((data) => {
         console.log(data.data);
-        this.setState({ coins: data.data, isLoading: false });
+        this.setState({ coins: data.data.data, isLoading: false });
       })
       .catch((e) => console.log(e));
   };

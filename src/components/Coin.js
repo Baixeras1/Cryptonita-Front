@@ -12,7 +12,7 @@ const Coin = ({ coin }) => {
 
   const getData = async () => {
     const res = await axios.get(
-      "https://api.coincap.io/v2/assets/" + coin.id + "/history?interval=d1"
+      "https://api.coincap.io/v2/assets/" + coin.name + "/history?interval=d1"
     );
     setHistory(res.data);
   };
@@ -30,7 +30,7 @@ const Coin = ({ coin }) => {
         <div style={{ flex: 1.4 }}>
           <NameCol>
             <CoinIcon>
-              <img src={coin.image} alt={coin.id} />
+              <img src={coin.logo} alt={coin.id} />
             </CoinIcon>
             <div>
               <Primary>{symbol}</Primary>
@@ -41,7 +41,7 @@ const Coin = ({ coin }) => {
         <div style={{ flex: 2 }}>
           <Primary>
             <NumberFormat
-              value={coin.current_price}
+              value={coin.priceUsd}
               displayType={"text"}
               thousandSeparator={true}
               prefix={"$"}
@@ -50,16 +50,16 @@ const Coin = ({ coin }) => {
           <div
             style={{
               color:
-                coin.price_change_percentage_24h < 0 ? "#f0616d" : "#26ad75",
+                coin.changePercent24Hr < 0 ? "#f0616d" : "#26ad75",
             }}
           >
-            {coin.price_change_percentage_24h > 0 && "+"}
-            {coin.price_change_percentage_24h}%
+            {coin.changePercent24Hr > 0 && "+"}
+            {coin.changePercent24Hr}%
           </div>
         </div>
         <div style={{ flex: 2 }}>
           <NumberFormat
-            value={coin.market_cap}
+            value={coin.marketCapUsd}
             displayType={"text"}
             thousandSeparator={true}
             prefix={"$"}

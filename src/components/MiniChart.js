@@ -10,7 +10,7 @@ const MiniChart = ({ history }) => {
   //console.log(history.data.map(entry => entry.time))
 
   const data = {
-    labels: history.data.map((entry) => entry.time),
+    labels: history.data.map((entry) => new Date(entry.time)),
     datasets: [
       {
         fill: false,
