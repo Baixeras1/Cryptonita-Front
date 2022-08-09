@@ -4,8 +4,37 @@ import Coin from "./Coin";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import "./Pagination.css";
+import { blue, purple, red } from "@mui/material/colors";
+import Button from "@mui/material/Button";
 
 const limitPage = 9;
+
+const theme = createTheme({
+  components: {
+    // Name of the component
+    MuiPaginationItem: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: "#fff",
+        },
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: blue[500],
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: red[500],
+      contrastText: "#fff",
+    },
+  },
+});
 
 const TableCoins = ({ coins }) => {
   const [items, setItems] = useState([]);
@@ -70,21 +99,24 @@ const TableCoins = ({ coins }) => {
         </PortfolioTable>
 
         <Stack spacing={2}>
-          <Pagination
-            color="primary"
-            variant="outlined"
-            count={totalPages}
-            page={page}
-            onChange={handlePageClick}
-            showFirstButton
-            showLastButton
-            sx={{
-              justifyContent: "center",
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              marginTop: 2,
-            }}
-          />
+          <ThemeProvider theme={theme}>
+            <Pagination
+              className="paginationcripto"
+              color="primary"
+              variant="outlined"
+              count={totalPages}
+              page={page}
+              onChange={handlePageClick}
+              showFirstButton
+              showLastButton
+              sx={{
+                justifyContent: "center",
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                marginTop: 4,
+              }}
+            />
+          </ThemeProvider>
         </Stack>
       </Content>
     </Wrapper>
@@ -149,21 +181,39 @@ const Title = styled.div`
   font-weight: 600;
 `;
 
-const styles = (theme) => ({
-  paginationItemStyle: {
-    marginLeft: "5px",
-    color: "white",
+const color = red[500];
+const BootstrapButton = styled(Button)({
+  boxShadow: "none",
+  textTransform: "none",
+  fontSize: 16,
+  padding: "6px 12px",
+  border: "1px solid",
+  lineHeight: 1.5,
+  backgroundColor: "#0063cc",
+  borderColor: "#0063cc",
+  fontFamily: [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    '"Segoe UI"',
+    "Roboto",
+    '"Helvetica Neue"',
+    "Arial",
+    "sans-serif",
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(","),
+  "&:hover": {
+    backgroundColor: "#0069d9",
+    borderColor: "#0062cc",
+    boxShadow: "none",
   },
-  paginationLinkStyle: {
-    backgroundColor: "#b90000",
-    borderRadius: "5px",
-
-    "&:hover": {
-      backgroundColor: "#772e2e",
-    },
-
-    "&:active": {
-      backgroundColor: "#772e2e",
-    },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0062cc",
+    borderColor: "#005cbf",
+  },
+  "&:focus": {
+    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
   },
 });
