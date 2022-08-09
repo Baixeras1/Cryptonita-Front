@@ -67,104 +67,102 @@ export default function SignIn() {
   };
 
   return (
-    <CssTextField>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            variant="h3"
+            fontFamily="Digitalism"
+            noWrap
+            component="a"
+            href="/"
             sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
             }}
           >
-            <Typography
-              variant="h3"
-              fontFamily="Digitalism"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Cryptonita
-            </Typography>
+            Cryptonita
+          </Typography>
 
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (password.length > 7) {
+                  setErrorPassword(true);
+                  setLeyenda("La contraseña tiene mas de 8 caracteres");
+                } else {
+                  setErrorPassword(false);
+                  setLeyenda("");
+                }
+              }}
+              error={errorpassword}
+              helperText={leyenda}
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Recordarme"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (password.length > 7) {
-                    setErrorPassword(true);
-                    setLeyenda("La contraseña tiene mas de 8 caracteres");
-                  } else {
-                    setErrorPassword(false);
-                    setLeyenda("");
-                  }
-                }}
-                error={errorpassword}
-                helperText={leyenda}
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Contraseña"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Recordarme"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Continuar
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Olvidó la contraseña?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/Registrarse" variant="body2">
-                    {"No tienes una cuenta? Registrarse"}
-                  </Link>
-                </Grid>
+              Continuar
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Olvidó la contraseña?
+                </Link>
               </Grid>
-            </Box>
+              <Grid item>
+                <Link href="/Registrarse" variant="body2">
+                  {"No tienes una cuenta? Registrarse"}
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </ThemeProvider>
-    </CssTextField>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
   );
 }
