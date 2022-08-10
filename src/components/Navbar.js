@@ -131,6 +131,7 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
+          {sessionStorage.getItem("username") ? 
           <Box sx={{ textAlign: "right", flexGrow: 1 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Stack direction="row" spacing={2}>
@@ -139,6 +140,7 @@ const ResponsiveAppBar = () => {
               <CustomizedMenus></CustomizedMenus>
             </IconButton>
           </Box>
+         : null}
         </Toolbar>
       </Container>
     </AppBar>

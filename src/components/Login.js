@@ -11,6 +11,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { alpha, styled } from "@mui/material/styles";
+import axios from "axios";
+import { Link as Link2 } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom';
+
 import {
   createTheme,
   ThemeProvider,
@@ -85,14 +90,37 @@ export default function SignIn() {
   const [leyenda, setLeyenda] = React.useState("");
   const [errorpassword, setErrorPassword] = React.useState(false);
 
+  const [status, setStatus] = useState([false]);
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    event.preventDefault()
+
+    let email = document.getElementById('email').value
+    let password = document.getElementById('password').value
+
+    axios
+      .get(
+        "http://localhost:8080/api/portfolio/getAll", {   //Test if the connection is established correctly
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        auth: {
+          username: email,
+          password: password
+        }
+      }
+      )
+      .then((data) => {
+        sessionStorage.setItem("username", email)
+        sessionStorage.setItem("password", password)
+        console.log("successfully")
+        setStatus(true)
+      })
+      .catch((e) => console.log(e)); 
   };
+
+  if (status === true)
+    return (<Navigate to='/'/>)
 
   return (
     <ThemeProvider theme={theme}>
