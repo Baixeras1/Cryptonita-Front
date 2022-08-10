@@ -13,6 +13,7 @@ import {
 import "antd/dist/antd.css";
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
+import "./Registrarse.css";
 
 const { Option } = Select;
 
@@ -106,7 +107,7 @@ const App = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "3%",
+          marginTop: "4%",
           fontWeight: 700,
           letterSpacing: ".3rem",
           color: "inherit",
@@ -118,7 +119,7 @@ const App = () => {
       <Form
         style={{
           width: "75%",
-          marginTop: "20px",
+          marginTop: "50px",
         }}
         {...formItemLayout}
         form={form}
