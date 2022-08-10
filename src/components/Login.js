@@ -10,13 +10,12 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { alpha, styled } from "@mui/material/styles";
 import {
   createTheme,
   ThemeProvider,
   experimental_sx as sx,
 } from "@mui/material/styles";
-import { alpha, styled } from "@mui/material/styles";
-import { hover } from "@testing-library/user-event/dist/hover";
 
 function Copyright(props) {
   return (
@@ -35,6 +34,25 @@ function Copyright(props) {
     </Typography>
   );
 }
+const CssTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "green",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "green",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "red",
+    },
+    "&:hover fieldset": {
+      borderColor: "yellow",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
+});
 
 const theme = createTheme({
   components: {
@@ -52,12 +70,6 @@ const theme = createTheme({
       styleOverrides: {
         notchedOutline: sx({
           borderColor: "red",
-          hover: "green",
-        }),
-        root: sx({
-          "&:hover fieldset": sx({
-            borderColor: "green",
-          }),
         }),
       },
     },
@@ -129,7 +141,7 @@ export default function SignIn() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
