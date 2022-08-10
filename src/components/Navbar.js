@@ -14,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import CustomizedMenus from "./MenuUsuario";
 
-const pages = ["Inicio", "Wallet", "Historial", "Login"];
+const pages = ["Inicio", "Portfolio", "Historial", "Login"];
 
 const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
 
