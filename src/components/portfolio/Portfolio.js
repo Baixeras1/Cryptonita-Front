@@ -27,13 +27,13 @@ const Portfolio = () => {
         }
       }
       )
-      .then((data) => {
-        console.log(data.data);
+      .then((data) => {        console.log(data.data);
         setPortfolio(data.data.data)
       })
       .catch((e) => console.log(e));
-
   };
+
+
 
   useEffect(() => {
     getData()
