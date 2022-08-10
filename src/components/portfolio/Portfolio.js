@@ -43,6 +43,7 @@ const Portfolio = () => {
           fetchSingleCoinInfo(element.coinName)
         });
         setPortfolio(data.data.data)
+        setStatus(true)
       })
       .catch((e) => console.log(e));
   }
@@ -74,7 +75,6 @@ const Portfolio = () => {
 
   useEffect(() => {
     if (status) return
-    setStatus(true)
     getData()
   });
 
@@ -167,6 +167,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
+  
 `
 const Content = styled.div`
   width: 100%;
