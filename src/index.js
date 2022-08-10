@@ -1,14 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Registrarse from "./components/Registrarse";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/Login" element={<Login />} />
+      <Route path="/Registrarse" element={<Registrarse />} />
+    </Routes>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
-
-
