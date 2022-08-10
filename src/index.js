@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Registrarse from "./components/Registrarse";
-import Portfolio from "./components/portfolio/Portfolio";
+import Portfolio from "./components/portfolio/Portfolio"
 
 ReactDOM.render(
   <BrowserRouter>

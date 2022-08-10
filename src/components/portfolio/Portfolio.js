@@ -4,18 +4,29 @@ import Sidebar from './Sidebar'
 import NavBar from "./../Navbar"
 import MiniChart from "./../MiniChart"
 import axios from "axios";
+import { element } from 'prop-types'
+import NumberFormat from "react-number-format";
+
+const coinInfoMap = new Map()
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
   const [portfolio, setPortfolio] = useState([])
+  const [status, setStatus] = useState(false)
 
   const getData = async () => {
+    fetchGrahp()
+    fetchCoins()
+  };
+
+  const fetchGrahp = async () => {
     const res = await axios.get(
       "https://api.coincap.io/v2/assets/bitcoin/history?interval=d1"
-    );
-    setHistory(res.data);
+    ).then(data => setHistory(data.data))
+  }
 
-    axios
+  const fetchCoins = async () => {
+    await axios
       .get(
         "http://localhost:8080/api/portfolio/getAll", {
         headers: {
@@ -27,17 +38,51 @@ const Portfolio = () => {
         }
       }
       )
-      .then((data) => {        console.log(data.data);
+      .then((data) => {
+        data.data.data.forEach(element => {
+          fetchSingleCoinInfo(element.coinName)
+        });
         setPortfolio(data.data.data)
       })
       .catch((e) => console.log(e));
-  };
+  }
 
+  const fetchSingleCoinInfo = async (name) => {
+    await axios
+      .get(
+        "http://localhost:8080/api/assets/getByName/" + name, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+        auth: {
+          username: 'sergio.bernal',
+          password: '1234'
+        }
+      }
+      )
+      .then((data) => {
+        coinInfoMap.set(name, data.data.data)
+        console.log(data.data.data.priceUsd)
+        //totalBalance += data.data.data.priceUsd;
+      })
+      .catch((e) => console.log(e));
+  }
 
+  const calculateTotalBalance = () => {
+
+  }
 
   useEffect(() => {
+    if (status) return
+    setStatus(true)
     getData()
-  }, []);
+  });
+
+  if (portfolio === undefined || coinInfoMap.size === 0) return "loading..."
+
+  //calculateTotalBalance()
+  let totalBalance = 0;
+  coinInfoMap.forEach((val, key) => totalBalance += val.priceUsd)
 
   return (
     <>
@@ -78,13 +123,28 @@ const Portfolio = () => {
                     <TableItem>
                       <TableRow>
                         <div style={{ flex: 3 }}>
-                          <div>
-                            <Primary>{coin.coinName}</Primary>
-                            <Secondary>{coin.quality}</Secondary>
+                          <div style={{ flex: 1.4 }}>
+                            <NameCol>
+                              <CoinIcon>
+                                <img src={coinInfoMap.get(coin.coinName).logo} alt="" />
+                              </CoinIcon>
+                              <div>
+                                <Primary>{coin.coinName}</Primary>
+                                <Secondary>{coinInfoMap.get(coin.coinName).symbol}</Secondary>
+                              </div>
+                            </NameCol>
                           </div>
                         </div>
-                        <div style={{ flex: 2 }}>{coin.quality}</div>
-                        <div style={{ flex: 2 }}>{coin.quality}</div>
+                        <div style={{ flex: 2 }}>
+                          <NumberFormat
+                            value={coinInfoMap.get(coin.coinName).priceUsd}
+                            displayType={"text"}
+                            thousandSeparator={true}
+                            prefix={"$"}
+                          />
+                        </div>
+                        <div style={{ flex: 2 }}>
+                          {coinInfoMap.get(coin.coinName).priceUsd / totalBalance * 100} %</div>
                         <div style={{ flex: 0, color: '#0a0b0d' }}>
                         </div>
                       </TableRow>
@@ -163,6 +223,16 @@ const Title = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
 `
+
+const NameCol = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CoinIcon = styled.div`
+  width: 1.8rem;
+  margin-right: 1rem;
+`;
 
 const Primary = styled.div`
   margin-bottom: 0.1rem;
