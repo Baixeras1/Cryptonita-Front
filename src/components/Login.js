@@ -19,12 +19,7 @@ import {
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Cryptonita
@@ -36,20 +31,14 @@ function Copyright(props) {
 }
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
-    color: "green",
+    color: "primary",
   },
   "& .MuiInput-underline:after": {
-    borderBottomColor: "green",
+    borderBottomColor: "primary",
   },
   "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "red",
-    },
     "&:hover fieldset": {
-      borderColor: "yellow",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "green",
+      borderColor: "#2196f3",
     },
   },
 });
@@ -69,7 +58,7 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: sx({
-          borderColor: "red",
+          borderColor: "white",
         }),
       },
     },
@@ -77,14 +66,14 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: sx({
-          color: "yellow",
+          color: "white",
         }),
       },
     },
     MuiCheckbox: {
       styleOverrides: {
         root: sx({
-          color: "green",
+          color: "white",
         }),
       },
     },
@@ -155,7 +144,7 @@ export default function SignIn() {
                 color: "white",
               }}
             />
-            <TextField
+            <CssTextField
               onChange={(e) => {
                 setPassword(e.target.value);
                 if (password.length > 7) {
