@@ -10,17 +10,16 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { alpha, styled } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  experimental_sx as sx,
+} from "@mui/material/styles";
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Cryptonita
@@ -32,25 +31,54 @@ function Copyright(props) {
 }
 const CssTextField = styled(TextField)({
   "& label.Mui-focused": {
-    color: "green",
+    color: "primary",
   },
   "& .MuiInput-underline:after": {
-    borderBottomColor: "green",
+    borderBottomColor: "primary",
   },
   "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "red",
-    },
     "&:hover fieldset": {
-      borderColor: "yellow",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "green",
+      borderColor: "#2196f3",
     },
   },
 });
 
-const theme = createTheme();
+const theme = createTheme({
+  components: {
+    // Name of the component
+    MuiInputBase: {
+      styleOverrides: {
+        input: sx({
+          borderColor: "white",
+          color: "white",
+        }),
+      },
+    },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: sx({
+          borderColor: "white",
+        }),
+      },
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: sx({
+          color: "white",
+        }),
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: sx({
+          color: "white",
+        }),
+      },
+    },
+  },
+});
 
 export default function SignIn() {
   const [password, setPassword] = React.useState("");
@@ -102,7 +130,7 @@ export default function SignIn() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
@@ -112,8 +140,11 @@ export default function SignIn() {
               type="email"
               autoComplete="email"
               autoFocus
+              sx={{
+                color: "white",
+              }}
             />
-            <TextField
+            <CssTextField
               onChange={(e) => {
                 setPassword(e.target.value);
                 if (password.length > 7) {
