@@ -10,8 +10,13 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  experimental_sx as sx,
+} from "@mui/material/styles";
 import { alpha, styled } from "@mui/material/styles";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 function Copyright(props) {
   return (
@@ -30,27 +35,49 @@ function Copyright(props) {
     </Typography>
   );
 }
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "green",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "green",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "red",
+
+const theme = createTheme({
+  components: {
+    // Name of the component
+    MuiInputBase: {
+      styleOverrides: {
+        input: sx({
+          borderColor: "white",
+          color: "white",
+        }),
+      },
     },
-    "&:hover fieldset": {
-      borderColor: "yellow",
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: sx({
+          borderColor: "red",
+          hover: "green",
+        }),
+        root: sx({
+          "&:hover fieldset": sx({
+            borderColor: "green",
+          }),
+        }),
+      },
     },
-    "&.Mui-focused fieldset": {
-      borderColor: "green",
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: sx({
+          color: "yellow",
+        }),
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: sx({
+          color: "green",
+        }),
+      },
     },
   },
 });
-
-const theme = createTheme();
 
 export default function SignIn() {
   const [password, setPassword] = React.useState("");
@@ -112,6 +139,9 @@ export default function SignIn() {
               type="email"
               autoComplete="email"
               autoFocus
+              sx={{
+                color: "white",
+              }}
             />
             <TextField
               onChange={(e) => {
