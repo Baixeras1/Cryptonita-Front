@@ -158,7 +158,9 @@ const ResponsiveAppBar = () => {
           ) : (
             <Box sx={{ textAlign: "right", flexGrow: 1 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <CustomizedMenus></CustomizedMenus>
+                <Link to={`/${"login"}`}>
+                  <CustomizedMenus></CustomizedMenus>
+                </Link>
               </IconButton>
             </Box>
           )}
