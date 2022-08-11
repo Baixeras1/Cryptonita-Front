@@ -17,21 +17,33 @@ export default function PositionedMenu() {
 
   const navigate = useNavigate();
   const HandleLogOut = () => {
-    console.log("wooooo")
-    navigate("/LogOut")
-  }
+    console.log("wooooo");
+    navigate("/LogOut");
+  };
 
   return (
     <div>
-      <Button
-        id="demo-positioned-button"
-        aria-controls={open ? "demo-positioned-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        Usuario
-      </Button>
+      {sessionStorage.getItem("username") ? (
+        <Button
+          id="demo-positioned-button"
+          aria-controls={open ? "demo-positioned-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          LOGOUT
+        </Button>
+      ) : (
+        <Button
+          id="demo-positioned-button"
+          aria-controls={open ? "demo-positioned-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          LOGIN
+        </Button>
+      )}
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"

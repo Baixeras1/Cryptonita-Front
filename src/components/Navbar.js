@@ -13,8 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import CustomizedMenus from "./MenuUsuario";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Inicio", "Portfolio", "Historial", "Login"];
+const pages = ["Inicio", "Portfolio", "Historial"];
 
 const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
 
@@ -35,6 +36,23 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const navigate = useNavigate();
+
+  const HandleLogOut = () => {
+    console.log("wooooo");
+    navigate("/LogOut");
   };
 
   return (
@@ -131,16 +149,21 @@ const ResponsiveAppBar = () => {
               </Link>
             ))}
           </Box>
-          {sessionStorage.getItem("username") ? 
-          <Box sx={{ textAlign: "right", flexGrow: 1 }}>
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Stack direction="row" spacing={2}>
-                <Avatar src="../usuario1.jpg" />
-              </Stack>
-              <CustomizedMenus></CustomizedMenus>
-            </IconButton>
-          </Box>
-         : null}
+          {sessionStorage.getItem("username") ? (
+            <Box sx={{ textAlign: "right", flexGrow: 1 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <CustomizedMenus></CustomizedMenus>
+              </IconButton>
+            </Box>
+          ) : (
+            <Box sx={{ textAlign: "right", flexGrow: 1 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Link to={`/${"login"}`}>
+                  <CustomizedMenus></CustomizedMenus>
+                </Link>
+              </IconButton>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
