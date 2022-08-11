@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { blue, red } from "@mui/material/colors";
 import Button from "@mui/material/Button";
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 
 const limitPage = 9;
 
@@ -36,24 +38,18 @@ const theme = createTheme({
 });
 
 const TableCoins = ({ coins }) => {
-  const [items, setItems] = useState([]);
+  const [status, setStatus] = useState([])
+  const [items, setItems] = useState(null);
   const [page, setPage] = React.useState(1);
-
-  useEffect(() => {
-    setItems(
-      coins.slice(
-        currentPage * limitPage,
-        Math.min(currentPage * limitPage + limitPage),
-        totalSize
-      )
-    );
-  }, []);
-
-  if (!coins) return <div>no coins</div>;
 
   let totalSize = coins.length;
   let totalPages = Math.ceil(totalSize / limitPage);
   let currentPage = 0;
+
+  useEffect(() => {
+      console.log(coins)
+      setItems(coins.slice(0, limitPage))
+  }, [coins])
 
   const handlePageClick = async (event, value) => {
     console.log(value);
@@ -67,7 +63,7 @@ const TableCoins = ({ coins }) => {
         totalSize
       )
     );
-    console.log(items);
+
   };
 
   return (
@@ -87,12 +83,16 @@ const TableCoins = ({ coins }) => {
             </TableItem>
             <Divider />
             <div>
-              {items.map((coin) => (
-                <div key={coin.name}>
-                  <Coin coin={coin} />
-                  <Divider />
-                </div>
-              ))}
+              {totalSize === 0 ?
+                <Box sx={{ width: '100%' }}>
+                  <LinearProgress />
+                </Box> :
+                items.map((coin) => (
+                  <div key={coin.name}>
+                    <Coin coin={coin} />
+                    <Divider />
+                  </div>
+                ))}
             </div>
           </Table>
         </PortfolioTable>

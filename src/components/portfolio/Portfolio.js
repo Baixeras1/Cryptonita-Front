@@ -6,83 +6,76 @@ import MiniChart from "./../MiniChart"
 import axios from "axios";
 import { element } from 'prop-types'
 import NumberFormat from "react-number-format";
-
-const coinInfoMap = new Map()
+import { Navigate } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
   const [portfolio, setPortfolio] = useState([])
-  const [status, setStatus] = useState(false)
-
-  const getData = async () => {
-    fetchGrahp()
-    fetchCoins()
-  };
-
-  const fetchGrahp = async () => {
-    const res = await axios.get(
-      "https://api.coincap.io/v2/assets/bitcoin/history?interval=d1"
-    ).then(data => setHistory(data.data))
-  }
-
-  const fetchCoins = async () => {
-    await axios
-      .get(
-        "http://localhost:8080/api/portfolio/getAll", {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        auth: {
-          username: 'sergio.bernal',
-          password: '1234'
-        }
-      }
-      )
-      .then((data) => {
-        data.data.data.forEach(element => {
-          fetchSingleCoinInfo(element.coinName)
-        });
-        setPortfolio(data.data.data)
-        setStatus(true)
-      })
-      .catch((e) => console.log(e));
-  }
-
-  const fetchSingleCoinInfo = async (name) => {
-    await axios
-      .get(
-        "http://localhost:8080/api/assets/getByName/" + name, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        auth: {
-          username: 'sergio.bernal',
-          password: '1234'
-        }
-      }
-      )
-      .then((data) => {
-        coinInfoMap.set(name, data.data.data)
-        console.log(data.data.data.priceUsd)
-        //totalBalance += data.data.data.priceUsd;
-      })
-      .catch((e) => console.log(e));
-  }
-
-  const calculateTotalBalance = () => {
-
-  }
-
+  const [status, setStatus] = useState()
+  const [coinInfoMap, setCoinInfoMap] = useState(new Map())
+  
   useEffect(() => {
-    if (status) return
+    const getData = async () => {
+      fetchGrahp()
+      fetchCoins()
+    };
+
+    const fetchGrahp = async () => {
+      await axios.get(
+        "https://api.coincap.io/v2/assets/bitcoin/history?interval=d1"
+      ).then(data => setHistory(data.data))
+    }
+
+    const fetchCoins = async () => {
+      await axios
+        .get(
+          "http://localhost:8080/api/portfolio/getAll", {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+          auth: {
+            username: sessionStorage.getItem("username"),
+            password: sessionStorage.getItem("password")
+          }
+        }
+        )
+        .then(async (data) => {
+          console.log(data.data.data)
+          for (const element of data.data.data) {
+            await fetchSingleCoinInfo(element.coinName)
+          }
+          setPortfolio(data.data.data)
+          setStatus(true)
+        })
+        .catch((e) => console.log(e));
+    }
+
+    const fetchSingleCoinInfo = async (name) => {
+      await axios
+        .get(
+          "http://localhost:8080/api/assets/getByName/" + name, {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+          auth: {
+            username: 'sergio.bernal',
+            password: '1234'
+          }
+        }
+        )
+        .then((data) => {
+          coinInfoMap.set(name, data.data.data)
+          console.log(data.data.data.priceUsd)
+        })
+        .catch((e) => console.log(e));
+    }
+
     getData()
-  });
-
-  if (portfolio === undefined || coinInfoMap.size === 0) return "loading..."
-
-  //calculateTotalBalance()
-  let totalBalance = 0;
-  coinInfoMap.forEach((val, key) => totalBalance += val.priceUsd)
+  }, []);
+  
+  if (sessionStorage.getItem("username") === null) 
+    return (<Navigate to='/'/>)
 
   return (
     <>
@@ -118,39 +111,41 @@ const Portfolio = () => {
               </TableItem>
               <Divider />
               <div>
-                {portfolio.map(coin => (
-                  <div key={coin.name}>
-                    <TableItem>
-                      <TableRow>
-                        <div style={{ flex: 3 }}>
-                          <div style={{ flex: 1.4 }}>
-                            <NameCol>
-                              <CoinIcon>
-                                <img src={coinInfoMap.get(coin.coinName).logo} alt="" />
-                              </CoinIcon>
-                              <div>
-                                <Primary>{coin.coinName}</Primary>
-                                <Secondary>{coinInfoMap.get(coin.coinName).symbol}</Secondary>
+                {
+                  (coinInfoMap.size === 0) ? <LinearProgress /> :
+                    (portfolio).map(coin => (
+                      <div key={coin.name}>
+                        <TableItem>
+                          <TableRow>
+                            <div style={{ flex: 3 }}>
+                              <div style={{ flex: 1.4 }}>
+                                <NameCol>
+                                  <CoinIcon>
+                                    <img src={coinInfoMap.get(coin.coinName).logo} alt="" />
+                                  </CoinIcon>
+                                  <div>
+                                    <Primary>{coin.coinName}</Primary>
+                                    <Secondary>{coinInfoMap.get(coin.coinName).symbol}</Secondary>
+                                  </div>
+                                </NameCol>
                               </div>
-                            </NameCol>
-                          </div>
-                        </div>
-                        <div style={{ flex: 2 }}>
-                          <NumberFormat
-                            value={coinInfoMap.get(coin.coinName).priceUsd}
-                            displayType={"text"}
-                            thousandSeparator={true}
-                            prefix={"$"}
-                          />
-                        </div>
-                        <div style={{ flex: 2 }}>
-                          {coinInfoMap.get(coin.coinName).priceUsd / totalBalance * 100} %</div>
-                        <div style={{ flex: 0, color: '#0a0b0d' }}>
-                        </div>
-                      </TableRow>
-                    </TableItem>
-                  </div>
-                ))}
+                            </div>
+                            <div style={{ flex: 2 }}>
+                              <NumberFormat
+                                value={coinInfoMap.get(coin.coinName).priceUsd}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"$"}
+                              />
+                            </div>
+                            <div style={{ flex: 2 }}>
+                              {coinInfoMap.get(coin.coinName).priceUsd * 100} %</div>
+                            <div style={{ flex: 0, color: '#0a0b0d' }}>
+                            </div>
+                          </TableRow>
+                        </TableItem>
+                      </div>
+                    ))}
               </div>
             </Table>
           </PortfolioTable>
@@ -167,7 +162,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
-  
+  margin-top: 130px;
 `
 const Content = styled.div`
   width: 100%;
