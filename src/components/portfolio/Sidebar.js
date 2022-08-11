@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 import CoinbaseLogo from '../../assets/img/cb-logo.png'
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
 
 const navItems = ["Portfolio", "Swap", "Send/Receive"]
 
@@ -11,9 +11,6 @@ const Sidebar = () => {
   return (
     <Wrapper>
       <LogoContainer>
-        <Logo>
-          <img src={CoinbaseLogo} alt='Coinbase Logo' />
-        </Logo>
       </LogoContainer>
       <NavItemsContainer>
         {navItems.map(item => (

@@ -32,12 +32,7 @@ export default class Skills extends Component {
   };
 
   render() {
-    const { coins, isLoading } = this.state;
-
-    if (isLoading) return;
-    <LoadingButton loading variant="outlined">
-      Submit
-    </LoadingButton>;
+    const { coins } = this.state;
 
     return (
       <section className="skill" id="skills">

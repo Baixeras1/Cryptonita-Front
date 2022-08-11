@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Registrarse from "./components/Registrarse";
 import Portfolio from "./components/portfolio/Portfolio"
+import LogOut from "./components//LogOut"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Route path="/Login" element={<Login />} />
       <Route path="/Registrarse" element={<Registrarse />} />
       <Route path="/Portfolio" element={<Portfolio />} />
+      <Route path="/LogOut" element={<LogOut />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
