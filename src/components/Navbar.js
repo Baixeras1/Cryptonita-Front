@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import CustomizedMenus from "./MenuUsuario";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Inicio", "Portfolio", "Historial", "Login"];
+const pages = ["Inicio", "Portfolio", "Historial"];
 
 const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
 
