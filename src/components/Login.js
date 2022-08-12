@@ -100,7 +100,7 @@ export default function SignIn() {
 
     axios
       .get(
-        "http://localhost:8080/api/portfolio/getAll", {   //Test if the connection is established correctly
+        "http://192.168.96.173:8080/api/portfolio/getAll", {   //Test if the connection is established correctly
         headers: {
           'Access-Control-Allow-Origin': '*',
         },

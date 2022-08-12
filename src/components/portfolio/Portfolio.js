@@ -30,7 +30,7 @@ const Portfolio = () => {
     const fetchCoins = async () => {
       await axios
         .get(
-          "http://localhost:8080/api/portfolio/getAll", {
+          "http://192.168.96.173:8080/api/portfolio/getAll", {
           headers: {
             'Access-Control-Allow-Origin': '*',
           },
@@ -54,7 +54,7 @@ const Portfolio = () => {
     const fetchSingleCoinInfo = async (name) => {
       await axios
         .get(
-          "http://localhost:8080/api/assets/getByName/" + name, {
+          "http://192.168.96.173:8080/api/assets/getByName/" + name, {
           headers: {
             'Access-Control-Allow-Origin': '*',
           },

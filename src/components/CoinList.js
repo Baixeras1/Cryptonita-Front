@@ -14,7 +14,7 @@ export default class Skills extends Component {
   getGames = () => {
     axios
       .get(
-        "http://localhost:8080/api/assets/getAll", {
+        "http://192.168.96.173:8080/api/assets/getAll", {
           headers: { 
             'Access-Control-Allow-Origin' : '*',
           },
