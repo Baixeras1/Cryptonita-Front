@@ -1,4 +1,4 @@
-import colorSharp from "../assets/img/color-sharp.png";
+import colorSharp from "../../assets/img/color-sharp.png";
 import TableCoins from "./TableCoins";
 import axios from "axios";
 import React, { Component } from "react";
@@ -12,23 +12,13 @@ export default class Skills extends Component {
   }
 
   getGames = () => {
-    axios
-      .get(
-        "http://192.168.96.173:8080/api/assets/getAll", {
-          headers: { 
-            'Access-Control-Allow-Origin' : '*',
-          },
-          auth: {
-            username: 'sergio.bernal',
-            password: '1234'
-          }
-        }
-      )
-      .then((data) => {
-        console.log(data.data);
-        this.setState({ coins: data.data.data, isLoading: false });
-      })
-      .catch((e) => console.log(e));
+    axios.get("http://localhost:8080/api/assets/getAll", {
+      headers: { 'Access-Control-Allow-Origin': '*', },
+      auth: { username: 'sergio.bernal', password: '1234' }
+    }).then((data) => {
+      console.log(data.data);
+      this.setState({ coins: data.data.data, isLoading: false });
+    }).catch((e) => console.log(e));
   };
 
   render() {

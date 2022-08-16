@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import CustomizedMenus from "./MenuUsuario";
+import CustomizedMenus from "./registration/MenuUsuario";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Start", "Briefcase", "History"];
