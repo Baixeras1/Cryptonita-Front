@@ -7,17 +7,15 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import CustomizedMenus from "./MenuUsuario";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Inicio", "Portfolio", "Historial"];
+const pages = ["Start", "Briefcase", "History"];
 
-const settings = ["Perfil", "Cuenta", "Monedero", "Salir"];
+const settings = ["Profile", "Account", "Wallet", "Exit"];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

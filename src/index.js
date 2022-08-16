@@ -6,8 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Registrarse from "./components/Registrarse";
-import Portfolio from "./components/portfolio/Portfolio"
-import LogOut from "./components//LogOut"
+import Portfolio from "./components/portfolio/Portfolio";
+import LogOut from "./components//LogOut";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -15,7 +15,7 @@ ReactDOM.render(
       <Route path="/" element={<Home />}></Route>
       <Route path="/Login" element={<Login />} />
       <Route path="/Registrarse" element={<Registrarse />} />
-      <Route path="/Portfolio" element={<Portfolio />} />
+      <Route path="/Briefcase" element={<Portfolio />} />
       <Route path="/LogOut" element={<LogOut />} />
     </Routes>
   </BrowserRouter>,
