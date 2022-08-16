@@ -13,7 +13,7 @@ import {
 import "antd/dist/antd.css";
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-import "./Registrarse.css";
+import { Navigate } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -48,8 +48,9 @@ const tailFormItemLayout = {
   },
 };
 
-const App = () => {
+const Register = () => {
   const [form] = Form.useForm();
+  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -80,7 +81,6 @@ const App = () => {
       </Select>
     </Form.Item>
   );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
   const onWebsiteChange = (value) => {
     if (!value) {
@@ -107,7 +107,7 @@ const App = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "4%",
+          marginTop: "3%",
           fontWeight: 700,
           letterSpacing: ".3rem",
           color: "inherit",
@@ -119,7 +119,7 @@ const App = () => {
       <Form
         style={{
           width: "75%",
-          marginTop: "50px",
+          marginTop: "20px",
         }}
         {...formItemLayout}
         form={form}
@@ -265,4 +265,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Register;

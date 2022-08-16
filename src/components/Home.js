@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import Skill from "./CoinList";
+import Skill from "./coinList/CoinList";
 import Banner from "./Banner";
 
 function Home() {

@@ -1,3 +1,5 @@
+/* eslint-disable */ 
+
 import * as React from "react";
 import "antd/dist/antd.css";
 import Button from "@mui/material/Button";
@@ -100,7 +102,7 @@ export default function SignIn() {
 
     axios
       .get(
-        "http://192.168.96.173:8080/api/portfolio/getAll", {   //Test if the connection is established correctly
+        "http://localhost:8080/api/portfolio/getAll", {   //Test if the connection is established correctly
         headers: {
           'Access-Control-Allow-Origin': '*',
         },

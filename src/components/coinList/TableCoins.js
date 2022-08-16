@@ -57,11 +57,7 @@ const TableCoins = ({ coins }) => {
     setPage(value);
 
     setItems(
-      coins.slice(
-        currentPage * limitPage,
-        Math.min(currentPage * limitPage + limitPage),
-        totalSize
-      )
+      coins.slice(currentPage * limitPage, Math.min(currentPage * limitPage + limitPage), totalSize)
     );
 
   };

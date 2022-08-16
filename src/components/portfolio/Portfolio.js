@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
-import NavBar from "./../Navbar";
-import MiniChart from "./../MiniChart";
+import styled from 'styled-components'
+import { useEffect, useState } from 'react'
+import Sidebar from './Sidebar'
+import NavBar from "./../Navbar"
+import MiniChart from "../coinList/MiniChart"
 import axios from "axios";
 import { element } from "prop-types";
 import NumberFormat from "react-number-format";
@@ -29,7 +29,8 @@ const Portfolio = () => {
 
     const fetchCoins = async () => {
       await axios
-        .get("http://192.168.96.173:8080/api/portfolio/getAll", {
+        .get(
+          "http://localhost:8080/api/portfolio/getAll", {
           headers: {
             "Access-Control-Allow-Origin": "*",
           },
@@ -51,7 +52,8 @@ const Portfolio = () => {
 
     const fetchSingleCoinInfo = async (name) => {
       await axios
-        .get("http://192.168.96.173:8080/api/assets/getByName/" + name, {
+        .get(
+          "http://localhost:8080/api/assets/getByName/" + name, {
           headers: {
             "Access-Control-Allow-Origin": "*",
           },
@@ -69,9 +71,7 @@ const Portfolio = () => {
 
     getData();
   }, []);
-
-  if (sessionStorage.getItem("username") === null) return <Navigate to="/" />;
-
+  
   return (
     <>
       <NavBar></NavBar>
