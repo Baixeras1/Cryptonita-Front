@@ -3,6 +3,7 @@ import MiniChart from "./MiniChart";
 import NumberFormat from "react-number-format";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // import Icon from 'react-crypto-icons'
 
 const updated = new Map();

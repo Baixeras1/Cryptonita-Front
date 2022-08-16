@@ -47,8 +47,8 @@ const TableCoins = ({ coins }) => {
   let currentPage = 0;
 
   useEffect(() => {
-      console.log(coins)
-      setItems(coins.slice(0, limitPage))
+    console.log(coins)
+    setItems(coins.slice(0, limitPage))
   }, [coins])
 
   const handlePageClick = async (event, value) => {
@@ -84,10 +84,11 @@ const TableCoins = ({ coins }) => {
                   <LinearProgress />
                 </Box> :
                 items.map((coin) => (
-                  <div key={coin.name}>
-                    <Coin coin={coin} />
+                  <div key={coin.name} onClick={() => console.log("wow nigga")}>
+                      <Coin coin={coin} />
                     <Divider />
                   </div>
+
                 ))}
             </div>
           </Table>
