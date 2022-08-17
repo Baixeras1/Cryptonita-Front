@@ -17,7 +17,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />}></Route>
-      <Route path="/coinInfo" element={<CoinInfo />} />
+      <Route path="/coinInfo/:coin" element={<CoinInfo/>} />
       <Route path="/Login" element={<GuardedRoute condition={NeedsRegistration()}> <Login /> </GuardedRoute>} />
       <Route path="/Register" element={<GuardedRoute condition={NeedsRegistration()}> <Register /> </GuardedRoute>} />
       <Route path="/Portfolio" element={<GuardedRoute condition={NeedsRegistration()}> <Portfolio /> </GuardedRoute>} />

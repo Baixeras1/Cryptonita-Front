@@ -4,12 +4,27 @@ import NumberFormat from "react-number-format";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 // import Icon from 'react-crypto-icons'
 
 const updated = new Map();
 
 const Coin = ({ coin }) => {
   const [history, setHistory] = useState([]);
+  const [value, setValue] = useState(null);
+
+  const basePrice = coin.priceUsd / Math.abs(coin.changePercent24Hr);
+
+  const calculateActualChangePercent = () => {
+    let aux = value / basePrice;
+
+    return (coin.changePercent24Hr) ? aux.toFixed(5) :  aux.toFixed(5) * -1;
+  }
+
+  const getChangePercent = () => {
+    return value ? calculateActualChangePercent() : coin.changePercent24Hr;
+  }
 
   const getData = async () => {
     const res = await axios.get(
@@ -20,9 +35,21 @@ const Coin = ({ coin }) => {
 
   useEffect(() => {
     getData();
+
+    const socket = SockJS('http://localhost:8080/wss');
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+      stompClient.subscribe('/crypto/' + coin.name, (data) => {
+        let json = JSON.parse(data.body);
+        setValue(json.price)
+      });
+    });
+
+    return () => stompClient.disconnect(() => { })
   }, []);
 
   let symbol = coin.symbol.toUpperCase();
+  let actualChange24 = getChangePercent();
 
   return (
     <Wrapper>
@@ -42,7 +69,7 @@ const Coin = ({ coin }) => {
         <div style={{ flex: 2 }}>
           <Primary>
             <NumberFormat
-              value={coin.priceUsd}
+              value={value === null ? coin.priceUsd : value}
               displayType={"text"}
               thousandSeparator={true}
               prefix={"$"}
@@ -51,11 +78,11 @@ const Coin = ({ coin }) => {
           <div
             style={{
               color:
-                coin.changePercent24Hr < 0 ? "#f0616d" : "#26ad75",
+                actualChange24 < 0 ? "#f0616d" : "#26ad75",
             }}
           >
-            {coin.changePercent24Hr > 0 && "+"}
-            {coin.changePercent24Hr}%
+            {actualChange24 > 0 && "+"}
+            {actualChange24}%
           </div>
         </div>
         <div style={{ flex: 2 }}>

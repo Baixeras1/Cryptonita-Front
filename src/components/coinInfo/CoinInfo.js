@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import axios from "axios";
 import MiniChart from '../coinList/MiniChart'
+import { useParams } from 'react-router';
 
-const CoinInfo = ({ coin }) => {
+const CoinInfo = () => {
 
     const [history, setHistory] = useState([]);
+    const { coin } = useParams();
 
     useEffect(() => {
         fetchGrahp()
