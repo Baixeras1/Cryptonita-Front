@@ -84,7 +84,6 @@ const Portfolio = () => {
                 <BalanceValue>{"$"}</BalanceValue>
               </Balance>
             </div>
-            <Graphic></Graphic>
           </Chart>
           <PortfolioTable>
             <TableItem>

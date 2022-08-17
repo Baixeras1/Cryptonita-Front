@@ -10,6 +10,7 @@ function Home() {
       <Navbar></Navbar>
       <Banner></Banner>
       <Skill></Skill>
+      <Graphic></Graphic>
     </>
   );
 }

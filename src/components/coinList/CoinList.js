@@ -39,7 +39,6 @@ export default class Skills extends Component {
           </div>
         </div>
         <img className="background-image-left" src={colorSharp} alt="Image" />
-        // eslint-disable-next-line
       </section>
     );
   }
