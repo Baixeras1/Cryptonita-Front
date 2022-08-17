@@ -6,19 +6,22 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 export default class Skills extends Component {
   state = { coins: [], isLoading: true };
-
+  // eslint-disable-next-line
   componentDidMount() {
     this.getGames();
   }
 
   getGames = () => {
-    axios.get("http://localhost:8080/api/assets/getAll", {
-      headers: { 'Access-Control-Allow-Origin': '*', },
-      auth: { username: 'sergio.bernal', password: '1234' }
-    }).then((data) => {
-      console.log(data.data);
-      this.setState({ coins: data.data.data, isLoading: false });
-    }).catch((e) => console.log(e));
+    axios
+      .get("http://localhost:8080/api/assets/getAll", {
+        headers: { "Access-Control-Allow-Origin": "*" },
+        auth: { username: "sergio.bernal", password: "1234" },
+      })
+      .then((data) => {
+        console.log(data.data);
+        this.setState({ coins: data.data.data, isLoading: false });
+      })
+      .catch((e) => console.log(e));
   };
 
   render() {
@@ -36,6 +39,7 @@ export default class Skills extends Component {
           </div>
         </div>
         <img className="background-image-left" src={colorSharp} alt="Image" />
+        // eslint-disable-next-line
       </section>
     );
   }
