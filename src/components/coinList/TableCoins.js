@@ -9,6 +9,7 @@ import { blue, red } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
+import { Navigate } from "react-router-dom";
 
 const limitPage = 9;
 
@@ -41,14 +42,15 @@ const TableCoins = ({ coins }) => {
   const [status, setStatus] = useState([])
   const [items, setItems] = useState(null);
   const [page, setPage] = React.useState(1);
+  const [click, setClicked] = useState(null);
 
   let totalSize = coins.length;
   let totalPages = Math.ceil(totalSize / limitPage);
   let currentPage = 0;
 
   useEffect(() => {
-      console.log(coins)
-      setItems(coins.slice(0, limitPage))
+    console.log(coins)
+    setItems(coins.slice(0, limitPage))
   }, [coins])
 
   const handlePageClick = async (event, value) => {
@@ -61,6 +63,10 @@ const TableCoins = ({ coins }) => {
     );
 
   };
+
+  if (click) {
+    return <Navigate to={"/coinInfo/" + click.name}></Navigate>
+}
 
   return (
     <Wrapper>
@@ -84,10 +90,11 @@ const TableCoins = ({ coins }) => {
                   <LinearProgress />
                 </Box> :
                 items.map((coin) => (
-                  <div key={coin.name}>
-                    <Coin coin={coin} />
+                  <div key={coin.name} onClick={() => setClicked(coin)}>
+                      <Coin coin={coin} />
                     <Divider />
                   </div>
+
                 ))}
             </div>
           </Table>
