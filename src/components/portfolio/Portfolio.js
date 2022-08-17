@@ -9,6 +9,8 @@ import NumberFormat from "react-number-format";
 import { Navigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import Graphic from "../coinList/Graphic";
+import TableCoins from "../coinList/TableCoins";
+import CoinsTable from "../CoinTable";
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);

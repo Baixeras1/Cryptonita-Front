@@ -56,6 +56,7 @@ ReactDOM.render(
         }
       />
       <Route path="/LogOut" element={<LogOut />} />
+      <Route path="/coins/:id" component={CoinPage} exact />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
