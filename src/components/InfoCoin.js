@@ -16,7 +16,7 @@ const InfoCoin = ({ coin }) => {
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
   const { currency } = CryptoState();
-  const [flag, setflag] = useState(false);
+  const [flag, setFlag] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -40,7 +40,7 @@ const InfoCoin = ({ coin }) => {
 
   const fetchHistoricData = async () => {
     const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
-    setflag(true);
+    setFlag(true);
     setHistoricData(data.prices);
   };
 
@@ -111,7 +111,7 @@ const InfoCoin = ({ coin }) => {
                   key={day.value}
                   onClick={() => {
                     setDays(day.value);
-                    setflag(false);
+                    setFlag(false);
                   }}
                   selected={day.value === days}
                 >

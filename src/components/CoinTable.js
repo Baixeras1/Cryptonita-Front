@@ -17,7 +17,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import axios from "axios";
-import { ListCoint } from "./config/api";
+import { CoinList } from "./config/api";
 import { useNavigate } from "react-router-dom";
 import { CryptoState } from "./CryptoContext";
 
@@ -63,7 +63,7 @@ export default function CoinsTable() {
 
   const fetchCoins = async () => {
     setLoading(true);
-    const { data } = await axios.get(ListCoint(currency));
+    const { data } = await axios.get(CoinList(currency));
     console.log(data);
 
     setCoins(data);

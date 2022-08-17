@@ -10,7 +10,6 @@ function Home() {
       <Navbar></Navbar>
       <Banner></Banner>
       <Skill></Skill>
-      <InfoCoin />
     </>
   );
 }

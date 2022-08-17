@@ -4,13 +4,9 @@ import Sidebar from "./Sidebar";
 import NavBar from "./../Navbar";
 import MiniChart from "../coinList/MiniChart";
 import axios from "axios";
-import { element } from "prop-types";
 import NumberFormat from "react-number-format";
-import { Navigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
-import Graphic from "../coinList/Graphic";
-import TableCoins from "../coinList/TableCoins";
-import CoinsTable from "../CoinTable";
+import InfoCoin from "../InfoCoin";
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
@@ -81,10 +77,7 @@ const Portfolio = () => {
         <Content>
           <Chart>
             <div>
-              <Balance>
-                <BalanceTitle>Portfolio balance</BalanceTitle>
-                <BalanceValue>{"$"}</BalanceValue>
-              </Balance>
+              <InfoCoin />
             </div>
           </Chart>
           <PortfolioTable>
