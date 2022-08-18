@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from 'styled-components'
 import MiniChart from "./MiniChart";
 import NumberFormat from "react-number-format";
 import { useState, useEffect } from "react";
@@ -13,6 +13,7 @@ const updated = new Map();
 const Coin = ({ coin }) => {
   const [history, setHistory] = useState([]);
   const [value, setValue] = useState(null);
+  const [lastValue, setLasValue] = useState(0);
 
   const basePrice = coin.priceUsd / Math.abs(coin.changePercent24Hr);
 
@@ -41,6 +42,7 @@ const Coin = ({ coin }) => {
     stompClient.connect({}, () => {
       stompClient.subscribe('/crypto/' + coin.name, (data) => {
         let json = JSON.parse(data.body);
+        setLasValue(value)
         setValue(json.price)
       });
     });
@@ -50,6 +52,8 @@ const Coin = ({ coin }) => {
 
   let symbol = coin.symbol.toUpperCase();
   let actualChange24 = getChangePercent();
+  
+  console.log(lastValue)
 
   return (
     <Wrapper>
@@ -73,6 +77,8 @@ const Coin = ({ coin }) => {
               displayType={"text"}
               thousandSeparator={true}
               prefix={"$"}
+              key={Math.random()} 
+              className={value >= lastValue ? "upAnimationContainer" : "downAnimationContainer"}
             />
           </Primary>
           <div
