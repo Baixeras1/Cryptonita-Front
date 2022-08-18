@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import CustomizedMenus from "./registration/MenuUsuario";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Start", "Briefcase", "History"];
+const pages = ["Home", "Portfolio", "History"];
 
 const settings = ["Profile", "Account", "Wallet", "Exit"];
 
