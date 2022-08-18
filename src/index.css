@@ -621,3 +621,21 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   letter-spacing: 0.5px;
   margin-top: 20px;
 }
+
+.upAnimationContainer {
+  animation: upAnimation 3s ease-in;
+}
+
+.downAnimationContainer {
+  animation: downAnimation 3s ease-in;
+}
+
+@keyframes upAnimation {
+  0% { color: #16c784 }
+  100% { color: white } 
+}
+
+@keyframes downAnimation {
+  0% { color: #ea3943 }
+  100% { color: white } 
+} 
