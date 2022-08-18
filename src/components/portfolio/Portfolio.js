@@ -6,7 +6,7 @@ import MiniChart from "../coinList/MiniChart";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import LinearProgress from "@mui/material/LinearProgress";
-import InfoCoin from "../InfoCoin";
+import TradeViewChart from "react-crypto-chart";
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
@@ -77,9 +77,15 @@ const Portfolio = () => {
         <Content>
           <Chart>
             <div>
-              <InfoCoin />
+              <Balance>
+                <BalanceTitle>Portfolio balance</BalanceTitle>
+                <BalanceValue>{"$"}</BalanceValue>
+              </Balance>
             </div>
+
+            {/* <MiniChart history={history} /> */}
           </Chart>
+
           <PortfolioTable>
             <TableItem>
               <Title>Your Assets</Title>
