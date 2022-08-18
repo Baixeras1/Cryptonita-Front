@@ -17,9 +17,9 @@ export default function PositionedMenu() {
 
   const navigate = useNavigate();
   const HandleLogOut = () => {
-    console.log("wooooo")
-    navigate("/LogOut")
-  }
+    console.log("wooooo");
+    navigate("/LogOut");
+  };
 
   return (
     <div>
@@ -30,7 +30,7 @@ export default function PositionedMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        Usuario
+        User
       </Button>
       <Menu
         id="demo-positioned-menu"
