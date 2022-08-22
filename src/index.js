@@ -12,6 +12,7 @@ import Swap from "./components/swap/Swap";
 import GuardedRoute from "./components/utils/GuardedRoute";
 import NeedsRegistration from "./components/utils/NeedsRegistration";
 import CoinInfo from "./components/coinInfo/CoinInfo";
+import HistoryPage from "./pages/HistoryPage";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -55,6 +56,7 @@ ReactDOM.render(
           </GuardedRoute>
         }
       />
+      <Route path="/History" element={<HistoryPage />}></Route>
       <Route path="/LogOut" element={<LogOut />} />
     </Routes>
   </BrowserRouter>,
