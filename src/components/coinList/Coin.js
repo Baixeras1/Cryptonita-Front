@@ -41,7 +41,7 @@ const Coin = ({ coin }) => {
 
   useEffect(() => {
     getData();
-/** 
+
     const socket = SockJS('http://localhost:8080/wss');
     const stompClient = Stomp.over(socket);
     stompClient.connect({}, () => {
@@ -50,7 +50,7 @@ const Coin = ({ coin }) => {
         setLasValue(value)
         setValue(json.price)
       });
-    }); **/
+    }); 
 
     //return () => stompClient.disconnect(() => { })
   }, []);
