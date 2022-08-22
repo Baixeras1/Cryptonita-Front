@@ -52,7 +52,7 @@ const Coin = ({ coin }) => {
       });
     }); 
 
-    //return () => stompClient.disconnect(() => { })
+    return () => stompClient.disconnect(() => { })
   }, []);
 
   let actualChange24 = getChangePercent();

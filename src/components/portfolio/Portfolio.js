@@ -9,9 +9,8 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
-  const [portfolio, setPortfolio] = useState([]);
+  const [portfolio, setPortfolio] = useState(null);
   const [status, setStatus] = useState();
-  const [coinInfoMap, setCoinInfoMap] = useState(new Map());
 
   useEffect(() => {
     const getData = async () => {
@@ -38,9 +37,9 @@ const Portfolio = () => {
         })
         .then(async (data) => {
           console.log(data.data.data);
-          for (const element of data.data.data) {
-            await fetchSingleCoinInfo(element.coinName);
-          }
+          /**for (const element of data.data.data) {
+            await fetchSingleCoinInfo(element.id);
+          } **/
           setPortfolio(data.data.data);
           setStatus(true);
         })
@@ -49,7 +48,7 @@ const Portfolio = () => {
 
     const fetchSingleCoinInfo = async (name) => {
       await axios
-        .get("http://localhost:8080/api/assets/getByName/" + name, {
+        .get("http://localhost:8080/api/assets/" + name, {
           headers: {
             "Access-Control-Allow-Origin": "*",
           },
@@ -59,7 +58,7 @@ const Portfolio = () => {
           },
         })
         .then((data) => {
-          coinInfoMap.set(name, data.data.data);
+          //coinInfoMap.set(name, data.data.data);
           console.log(data.data.data.priceUsd);
         })
         .catch((e) => console.log(e));
@@ -99,10 +98,10 @@ const Portfolio = () => {
               </TableItem>
               <Divider />
               <div>
-                {coinInfoMap.size === 0 ? (
+                {portfolio === null ? (
                   <LinearProgress />
                 ) : (
-                  portfolio.map((coin) => (
+                  portfolio.wallets.map((coin) => (
                     <div key={coin.name}>
                       <TableItem>
                         <TableRow>
@@ -111,14 +110,14 @@ const Portfolio = () => {
                               <NameCol>
                                 <CoinIcon>
                                   <img
-                                    src={coinInfoMap.get(coin.coinName).logo}
+                                    src={coin.image}
                                     alt=""
                                   />
                                 </CoinIcon>
                                 <div>
                                   <Primary>{coin.coinName}</Primary>
                                   <Secondary>
-                                    {coinInfoMap.get(coin.coinName).symbol}
+                                    {coin.symbol}
                                   </Secondary>
                                 </div>
                               </NameCol>
@@ -126,14 +125,14 @@ const Portfolio = () => {
                           </div>
                           <div style={{ flex: 2 }}>
                             <NumberFormat
-                              value={coinInfoMap.get(coin.coinName).priceUsd}
+                              value={coin.current_price}
                               displayType={"text"}
                               thousandSeparator={true}
                               prefix={"$"}
                             />
                           </div>
                           <div style={{ flex: 2 }}>
-                            {coinInfoMap.get(coin.coinName).priceUsd * 100} %
+                            {coin.current_price * 100} %
                           </div>
                           <div style={{ flex: 0, color: "#0a0b0d" }}></div>
                         </TableRow>
