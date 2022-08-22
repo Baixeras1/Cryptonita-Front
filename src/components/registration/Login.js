@@ -101,7 +101,7 @@ export default function SignIn() {
     let password = document.getElementById("password").value;
 
     axios
-      .get("http://localhost:8080/autentication/login?username=" + email + "&password=" + password, {
+      .get("http://localhost:8080/authentication/login?username=" + email + "&password=" + password, {
         //Test if the connection is established correctly
         headers: {
           "Access-Control-Allow-Origin": "*",
