@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import AccountPage from "../../pages/AccountPage";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,11 +26,13 @@ export default function PositionedMenu() {
   };
 
   return (
-    <div>
+    <>
       <Button
+        startIcon={<ArrowDropDownIcon fontSize="small" />}
         id="demo-positioned-button"
         aria-controls={open ? "demo-positioned-menu" : undefined}
         aria-haspopup="true"
+        variant="contained"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
@@ -54,6 +57,6 @@ export default function PositionedMenu() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={HandleLogOut}>Logout</MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
