@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import AccountPage from "../../pages/AccountPage";
 
 export default function PositionedMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -11,14 +12,16 @@ export default function PositionedMenu() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const navigate = useNavigate();
   const HandleLogOut = () => {
     console.log("wooooo");
     navigate("/LogOut");
+  };
+  const handleClose = () => {
+    navigate("/AccountPage");
+  };
+  const handleCloser = () => {
+    navigate("/CustomersPage");
   };
 
   return (
@@ -47,8 +50,8 @@ export default function PositionedMenu() {
           horizontal: "left",
         }}
       >
+        <MenuItem onClick={handleCloser}>Account</MenuItem>
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem onClick={HandleLogOut}>Logout</MenuItem>
       </Menu>
     </div>
