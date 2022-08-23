@@ -118,6 +118,10 @@ export default function SignIn() {
       .catch((e) => console.log(e));
   };
 
+  if (sessionStorage.getItem("username") !== null) {  // Already logger in
+    return <Navigate to="/"></Navigate>
+}
+
   if (status === true) return <Navigate to="/" />;
 
   return (

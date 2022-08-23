@@ -6,6 +6,7 @@ import MiniChart from "../coinList/MiniChart";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import LinearProgress from "@mui/material/LinearProgress";
+import { Navigate } from "react-router-dom"
 
 const Portfolio = () => {
   const [history, setHistory] = useState([]);
@@ -67,6 +68,10 @@ const Portfolio = () => {
     getData();
   }, []);
 
+  if (sessionStorage.getItem("username") === null) {
+    return <Navigate to="/"></Navigate>
+}
+
   return (
     <>
       <NavBar></NavBar>
@@ -91,6 +96,7 @@ const Portfolio = () => {
               <TableItem>
                 <TableRow>
                   <div style={{ flex: 3 }}>Name</div>
+                  <div style={{flex: 2}}>Quantity</div>
                   <div style={{ flex: 2 }}>Balance</div>
                   <div style={{ flex: 2 }}>Allocation</div>
                   <div style={{ flex: 0, color: "#0a0b0d" }}></div>
@@ -105,34 +111,37 @@ const Portfolio = () => {
                     <div key={coin.name}>
                       <TableItem>
                         <TableRow>
-                          <div style={{ flex: 3 }}>
+                          <div style={{ flex: 3.1 }}>
                             <div style={{ flex: 1.4 }}>
                               <NameCol>
                                 <CoinIcon>
                                   <img
-                                    src={coin.image}
+                                    src={coin.marketData.image}
                                     alt=""
                                   />
                                 </CoinIcon>
                                 <div>
-                                  <Primary>{coin.coinName}</Primary>
+                                  <Primary>{coin.name}</Primary>
                                   <Secondary>
-                                    {coin.symbol}
+                                    {coin.marketData.symbol.toUpperCase()}
                                   </Secondary>
                                 </div>
                               </NameCol>
                             </div>
                           </div>
+                          <div style={{ flex: 1.7 }}>
+                            {coin.quantity}
+                          </div>
                           <div style={{ flex: 2 }}>
                             <NumberFormat
-                              value={coin.current_price}
+                              value={(coin.quantity * coin.marketData.current_price).toFixed(3)}
                               displayType={"text"}
                               thousandSeparator={true}
                               prefix={"$"}
                             />
                           </div>
                           <div style={{ flex: 2 }}>
-                            {coin.current_price * 100} %
+                            {coin.allocation.toFixed(3)} %
                           </div>
                           <div style={{ flex: 0, color: "#0a0b0d" }}></div>
                         </TableRow>

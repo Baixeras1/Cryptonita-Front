@@ -13,7 +13,7 @@ const updated = new Map();
 const Coin = ({ coin }) => {
   const [history, setHistory] = useState([]);
   const [value, setValue] = useState(null);
-  const [lastValue, setLasValue] = useState(0);
+  const [lastValue, setLastValue] = useState(0);
 
   const basePrice = coin.marketData.current_price / Math.abs(coin.marketData.market_cap_change_percentage_24h);
 
@@ -47,8 +47,10 @@ const Coin = ({ coin }) => {
     stompClient.connect({}, () => {
       stompClient.subscribe('/crypto/' + coin.id, (data) => {
         let json = JSON.parse(data.body);
-        setLasValue(value)
-        setValue(json.price)
+        setValue(prevState => {
+          setLastValue(prevState)
+          return json.price
+        })
       });
     }); 
 
