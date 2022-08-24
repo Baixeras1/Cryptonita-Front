@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import axios from "axios";
 import {
   Avatar,
   Box,
@@ -21,6 +22,30 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [historial, setHistorial] = useState(undefined);
+
+  useEffect(() => {
+    getHistorial();
+  }, []);
+
+  const getHistorial = () => {
+    axios
+      .get(
+        "http://localhost:8080/api/history?start=10-08-2022&end=25-08-2022",
+        {
+          headers: { "Access-Control-Allow-Origin": "*" },
+          auth: {
+            username: sessionStorage.getItem("username"),
+            password: sessionStorage.getItem("password"),
+          },
+        }
+      )
+      .then((data) => {
+        console.log(data.data);
+        setHistorial(data.data.data);
+      })
+      .catch((e) => console.log(e));
+  };
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
@@ -69,6 +94,8 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
+  if (historial === undefined) return null;
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -91,13 +118,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Name
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold", color: "white" }}>
-                  Email
+                  Origin
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold", color: "white" }}>
-                  Location
+                  Destiny
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold", color: "white" }}>
-                  Phone
+                  Quantity
                 </TableCell>
                 <TableCell sx={{ fontWeight: "bold", color: "white" }}>
                   Registration date
@@ -105,16 +132,22 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody sx={{ backgroundColor: "#121212" }}>
-              {customers.slice(0, limit).map((customer) => (
+              {historial.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={customer.user.name}
+                  selected={
+                    selectedCustomerIds.indexOf(customer.user.name) !== -1
+                  }
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={
+                        selectedCustomerIds.indexOf(customer.user.name) !== -1
+                      }
+                      onChange={(event) =>
+                        handleSelectOne(event, customer.user.name)
+                      }
                       value="true"
                     />
                   </TableCell>
@@ -125,26 +158,24 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                         display: "flex",
                       }}
                     >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
-                        {getInitials(customer.name)}
+                      <Avatar src={customer.user.name} sx={{ mr: 2 }}>
+                        {getInitials(customer.user.name)}
                       </Avatar>
                       <Typography color="white" variant="body1">
-                        {customer.name}
+                        {customer.user.username}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>
-                    {customer.email}
+                    {customer.origin}
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {customer.destiny}
                   </TableCell>
                   <TableCell sx={{ color: "white" }}>
-                    {customer.phone}
+                    {customer.quantity}
                   </TableCell>
-                  <TableCell sx={{ color: "white" }}>
-                    {format(customer.createdAt, "dd/MM/yyyy")}
-                  </TableCell>
+                  <TableCell sx={{ color: "white" }}>{customer.date}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
