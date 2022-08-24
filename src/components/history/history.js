@@ -129,22 +129,22 @@ const headCell = [
     label: "Name",
   },
   {
-    id: "price",
+    id: "origin",
     numeric: true,
     disablePadding: false,
-    label: "Price",
+    label: "Origin",
   },
   {
-    id: "cap.market",
+    id: "destiny",
     numeric: true,
     disablePadding: false,
-    label: "Cap.Market",
+    label: "Destiny",
   },
   {
-    id: "last",
+    id: "quantity",
     numeric: true,
     disablePadding: false,
-    label: "Last 7 days",
+    label: "Quantity",
   },
   {
     id: "date",
