@@ -73,7 +73,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
-          <Table>
+          <Table sx={{ backgroundColor: "#2196f3" }}>
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
@@ -87,16 +87,24 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Location</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>
+                <TableCell sx={{ fontWeight: "bold", color: "white" }}>
+                  Name
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: "white" }}>
+                  Email
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: "white" }}>
+                  Location
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: "white" }}>
+                  Phone
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", color: "white" }}>
                   Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody sx={{ backgroundColor: "#121212" }}>
               {customers.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
@@ -120,17 +128,21 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                       <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
                         {getInitials(customer.name)}
                       </Avatar>
-                      <Typography color="textPrimary" variant="body1">
+                      <Typography color="white" variant="body1">
                         {customer.name}
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>{customer.email}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ color: "white" }}>
+                    {customer.email}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }}>
                     {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
                   </TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ color: "white" }}>
+                    {customer.phone}
+                  </TableCell>
+                  <TableCell sx={{ color: "white" }}>
                     {format(customer.createdAt, "dd/MM/yyyy")}
                   </TableCell>
                 </TableRow>
@@ -147,6 +159,10 @@ export const CustomerListResults = ({ customers, ...rest }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
+        sx={{
+          color: "white",
+          backgroundColor: "#2196f3",
+        }}
       />
     </Card>
   );

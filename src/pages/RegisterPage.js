@@ -117,7 +117,7 @@ const Register = () => {
         >
           <Container maxWidth="sm">
             <form onSubmit={formik.handleSubmit}>
-              <Box sx={{ my: 3 }}>
+              <Box sx={{ my: 3, marginTop: "80px" }}>
                 <Typography color="white" variant="h4">
                   Create a new account
                 </Typography>
