@@ -20,21 +20,6 @@ const CoinInfo = () => {
 
   useEffect(() => {
     fetchGrahp();
-
-    const socket = SockJS('http://localhost:8080/wss');
-    const stompClient = Stomp.over(socket);
-    
-    stompClient.connect({}, () => {
-      stompClient.subscribe('/crypto/' + coin, (data) => {
-        let json = JSON.parse(data.body);
-        setPrice(() => json.price)
-        console.log(price, json.price)
-      });
-    }); 
-
-    console.log("useEffect")
-
-    return () => stompClient.disconnect(() => { })
   }, []);
 
   console.log(price)
@@ -97,157 +82,6 @@ const CoinInfo = () => {
                   </Typography>
                 </SymbolContainer>
               </FirstTitleContainer>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography
-                variant="body2"
-                display="block"
-                style={{ color: "#8a919e", fontWeight: "bold" }}
-              >
-                {metadata.name} price ({metadata.symbol.toUpperCase()})
-              </Typography>
-              <SecondTitleContainer>
-                <Typography
-                  variant="h4"
-                  display="block"
-                  style={{
-                    color: "white",
-                    fontWeight: "bold",
-                    marginTop: "6px",
-                  }}
-                >
-                  ${price}
-                </Typography>
-                <NegativeContainer>
-                  <MdKeyboardArrowUp
-                    style={{ marginTop: "15px", marginLeft: "10px" }}
-                  />
-                  <Typography
-                    variant="body1"
-                    display="block"
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    0.01%
-                  </Typography>
-                </NegativeContainer>
-              </SecondTitleContainer>
-
-              <Divider style={{ marginTop: "40px", marginBottom: "10px" }} />
-
-              <Grid container spacing={2}>
-                <Grid item xs={3}>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "#a1a7bb",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Market Cap
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    $459,939,862,561
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={3}>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "#a1a7bb",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Market Cap
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    $459,939,862,561
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={3}>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "#a1a7bb",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Market Cap
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    $459,939,862,561
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={3}>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "#a1a7bb",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    Market Cap
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    display="block"
-                    style={{
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "12px",
-                      marginRight: "10px",
-                    }}
-                  >
-                    $459,939,862,561
-                  </Typography>
-                </Grid>
-              </Grid>
             </Grid>
           </Grid>
         </TitleContainer>
@@ -327,6 +161,117 @@ const CoinInfo = () => {
     </>
   );
 };
+
+/** 
+<Grid container spacing={2}>
+<Grid item xs={3}>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "#a1a7bb",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    Market Cap
+  </Typography>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "white",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    $459,939,862,561
+  </Typography>
+</Grid>
+
+<Grid item xs={3}>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "#a1a7bb",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    Market Cap
+  </Typography>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "white",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    $459,939,862,561
+  </Typography>
+</Grid>
+
+<Grid item xs={3}>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "#a1a7bb",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    Market Cap
+  </Typography>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "white",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    $459,939,862,561
+  </Typography>
+</Grid>
+
+<Grid item xs={3}>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "#a1a7bb",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    Market Cap
+  </Typography>
+  <Typography
+    variant="body2"
+    display="block"
+    style={{
+      color: "white",
+      fontWeight: "bold",
+      marginTop: "12px",
+      marginRight: "10px",
+    }}
+  >
+    $459,939,862,561
+  </Typography>
+</Grid>
+</Grid> **/
 
 export default CoinInfo;
 

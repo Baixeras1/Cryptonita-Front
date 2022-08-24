@@ -79,16 +79,12 @@ const Portfolio = () => {
   }, []);
 
   if (sessionStorage.getItem("username") === null) {
-<<<<<<< HEAD
     return (
       <>
         <NavBar></NavBar>
         <Error />
       </>
     );
-=======
-    return <Navigate to="/"></Navigate>
->>>>>>> c426467 ([#27546] Continue to do coinInfo)
   }
 
   return (
@@ -152,13 +148,7 @@ const Portfolio = () => {
                               </NameCol>
                             </div>
                           </div>
-<<<<<<< HEAD
                           <div style={{ flex: 1.7 }}>{coin.quantity}</div>
-=======
-                          <div style={{ flex: 1.7 }}>
-                            {coin.quantity.toFixed(5)}
-                          </div>
->>>>>>> c426467 ([#27546] Continue to do coinInfo)
                           <div style={{ flex: 2 }}>
                             <NumberFormat
                               value={(

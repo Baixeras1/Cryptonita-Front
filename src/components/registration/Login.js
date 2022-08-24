@@ -110,6 +110,7 @@ export default function SignIn() {
       .then((data) => {
         console.log(data.data)
         if (!data.data.result === "true") return;
+
         sessionStorage.setItem("username", email);
         sessionStorage.setItem("password", password);
         console.log("successfully");
@@ -119,7 +120,7 @@ export default function SignIn() {
   };
 
   if (sessionStorage.getItem("username") !== null) {  // Already logger in
-    return <Navigate to="/"></Navigate>
+    return <Navigate to="/Portfolio"></Navigate>
 }
 
   if (status === true) return <Navigate to="/" />;
