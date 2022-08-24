@@ -40,15 +40,7 @@ ReactDOM.render(
           </GuardedRoute>
         }
       />
-      <Route
-        path="/Portfolio"
-        element={
-          <GuardedRoute condition={NeedsRegistration()}>
-            {" "}
-            <Portfolio />{" "}
-          </GuardedRoute>
-        }
-      />
+      <Route path="/Portfolio" element={<Portfolio></Portfolio>} />
       <Route
         path="/Swap"
         element={

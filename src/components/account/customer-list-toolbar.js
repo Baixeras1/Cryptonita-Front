@@ -13,6 +13,27 @@ import UploadIcon from "@mui/icons-material/Upload";
 import DownloadIcon from "@mui/icons-material/Download";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { alpha, styled } from "@mui/material/styles";
+
+const CssTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "green",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "green",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "red",
+    },
+    "&:hover fieldset": {
+      borderColor: "yellow",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
+});
 
 export const CustomerListToolbar = (props) => (
   <Box {...props}>
@@ -53,7 +74,7 @@ export const CustomerListToolbar = (props) => (
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
-        <CardContent>
+        <CardContent sx={{ backgroundColor: "#121212" }}>
           <Box
             component="form"
             sx={{
@@ -65,8 +86,9 @@ export const CustomerListToolbar = (props) => (
             noValidate
             autoComplete="off"
           >
-            <TextField
+            <CssTextField
               fullWidth
+              color="primary"
               id="outlined-basic"
               label="Search customer"
               variant="outlined"
@@ -74,14 +96,13 @@ export const CustomerListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon color="action" fontSize="small">
+                    <SvgIcon color="info" fontSize="small">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
                 ),
               }}
               placeholder="Search customer"
-              sx={{ color: "white" }}
             />
           </Box>
         </CardContent>
