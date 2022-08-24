@@ -8,34 +8,55 @@ import axios from "axios";
 import MiniChart from "../coinList/MiniChart";
 import { useParams } from "react-router";
 import TradeViewChart from "react-crypto-chart";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 const CoinInfo = () => {
-  const [history, setHistory] = useState(null);
+  const [metadata, setMetadata] = useState(null);
   const { coin } = useParams();
+  const [price, setPrice] = useState(0.0);
 
   console.log(coin);
 
   useEffect(() => {
     fetchGrahp();
+
+    const socket = SockJS('http://localhost:8080/wss');
+    const stompClient = Stomp.over(socket);
+    
+    stompClient.connect({}, () => {
+      stompClient.subscribe('/crypto/' + coin, (data) => {
+        let json = JSON.parse(data.body);
+        setPrice(() => json.price)
+        console.log(price, json.price)
+      });
+    }); 
+
+    console.log("useEffect")
+
+    return () => stompClient.disconnect(() => { })
   }, []);
 
-  const fetchGrahp = async () => {
-    await axios
+  console.log(price)
+  const fetchGrahp = () => {
+    axios
       .get("http://localhost:8080/api/assets/" + coin, {
         headers: { "Access-Control-Allow-Origin": "*" },
         auth: { username: "sergio.bernal", password: "1234" },
       })
       .then((data) => {
         console.log(data);
-        setHistory(data.data);
+        setMetadata(data.data.data);
       });
   };
 
   const imgStyle = { height: 40, width: 40 };
-  console.log(history);
-  if (history === null) {
+  console.log(metadata);
+  
+  if (metadata === null) {
     return null;
   }
+
   return (
     <>
       <NavBar></NavBar>
@@ -45,7 +66,7 @@ const CoinInfo = () => {
             <Grid item xs={4}>
               <FirstTitleContainer>
                 <img
-                  src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
+                  src={metadata.image}
                   style={imgStyle}
                 />
                 <Typography
@@ -58,7 +79,7 @@ const CoinInfo = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Bitcoin
+                  {metadata.name}
                 </Typography>
                 <SymbolContainer>
                   <Typography
@@ -72,7 +93,7 @@ const CoinInfo = () => {
                       marginRight: "10px",
                     }}
                   >
-                    BTC
+                    {metadata.symbol.toUpperCase()}
                   </Typography>
                 </SymbolContainer>
               </FirstTitleContainer>
@@ -83,7 +104,7 @@ const CoinInfo = () => {
                 display="block"
                 style={{ color: "#8a919e", fontWeight: "bold" }}
               >
-                Bitcoin price (BTC)
+                {metadata.name} price ({metadata.symbol.toUpperCase()})
               </Typography>
               <SecondTitleContainer>
                 <Typography
@@ -95,7 +116,7 @@ const CoinInfo = () => {
                     marginTop: "6px",
                   }}
                 >
-                  $24,023.77
+                  ${price}
                 </Typography>
                 <NegativeContainer>
                   <MdKeyboardArrowUp
@@ -238,7 +259,7 @@ const CoinInfo = () => {
               display="block"
               style={{ color: "white", fontWeight: "bold" }}
             >
-              Bitcoin to USD Chart
+              {metadata.name} to USD Chart
             </Typography>
             <ActualChartContainer>
               <TradeViewChart
@@ -247,7 +268,7 @@ const CoinInfo = () => {
                   minWidth: "400px",
                   marginBottom: "30px",
                 }}
-                pair={history.data.symbol.toUpperCase() + "USDT"}
+                pair={metadata.symbol.toUpperCase() + "USDT"}
                 chartLayout={{
                   layout: {
                     backgroundColor: "transparent",
@@ -287,7 +308,7 @@ const CoinInfo = () => {
               display="block"
               style={{ color: "white", fontWeight: "bold" }}
             >
-              What Is Bitcoin (BTC)?
+              What Is {metadata.name} ({metadata.symbol.toUpperCase()})?
             </Typography>
 
             <Typography
@@ -298,18 +319,7 @@ const CoinInfo = () => {
                 marginTop: "20px",
               }}
             >
-              Bitcoin is a decentralized cryptocurrency originally described in
-              a 2008 whitepaper by a person, or group of people, using the alias
-              Satoshi Nakamoto. It was launched soon after, in January 2009.
-              Bitcoin is a peer-to-peer online currency, meaning that all
-              transactions happen directly between equal, independent network
-              participants, without the need for any intermediary to permit or
-              facilitate them. Bitcoin was created, according to Nakamoto’s own
-              words, to allow “online payments to be sent directly from one
-              party to another without going through a financial institution.”
-              Some concepts for a similar type of a decentralized electronic
-              currency precede BTC, but Bitcoin holds the distinction of being
-              the first-ever cryptocurrency to come into actual use.
+              {metadata.description}
             </Typography>
           </DescriptionContainer>
         </SecondPart>

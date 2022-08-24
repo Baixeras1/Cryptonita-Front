@@ -21,14 +21,22 @@ const Portfolio = () => {
       fetchCoins();
     };
 
-    const fetchGrahp = async () => {
-      await axios
-        .get("https://api.coincap.io/v2/assets/bitcoin/history?interval=d1")
+    const fetchGrahp = () => {
+      axios
+        .get("http://localhost:8080/api/portfolio/chart", {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+          auth: {
+            username: sessionStorage.getItem("username"),
+            password: sessionStorage.getItem("password"),
+          },
+        })
         .then((data) => setHistory(data.data));
     };
 
-    const fetchCoins = async () => {
-      await axios
+    const fetchCoins = () => {
+      axios
         .get("http://localhost:8080/api/portfolio/getAll", {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -71,12 +79,16 @@ const Portfolio = () => {
   }, []);
 
   if (sessionStorage.getItem("username") === null) {
+<<<<<<< HEAD
     return (
       <>
         <NavBar></NavBar>
         <Error />
       </>
     );
+=======
+    return <Navigate to="/"></Navigate>
+>>>>>>> c426467 ([#27546] Continue to do coinInfo)
   }
 
   return (
@@ -89,7 +101,14 @@ const Portfolio = () => {
             <div>
               <Balance>
                 <BalanceTitle>Portfolio balance</BalanceTitle>
-                <BalanceValue>{"$"}</BalanceValue>
+                <BalanceValue>{portfolio === null ? 0.0 :
+                  <NumberFormat
+                    value={portfolio.balance.toFixed(5)}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"$"}
+                  />}
+                  </BalanceValue>
               </Balance>
             </div>
             <MiniChart history={history} />
@@ -133,7 +152,13 @@ const Portfolio = () => {
                               </NameCol>
                             </div>
                           </div>
+<<<<<<< HEAD
                           <div style={{ flex: 1.7 }}>{coin.quantity}</div>
+=======
+                          <div style={{ flex: 1.7 }}>
+                            {coin.quantity.toFixed(5)}
+                          </div>
+>>>>>>> c426467 ([#27546] Continue to do coinInfo)
                           <div style={{ flex: 2 }}>
                             <NumberFormat
                               value={(

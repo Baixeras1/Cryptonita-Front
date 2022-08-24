@@ -100,16 +100,18 @@ const Swap = () => {
     }
 
     const swapNowHandler = () => {
-        if ((firstCoin === null || firstCoin === undefined) || (secondCoin === null || secondCoin === undefined)) return;
+        if (firstCoin === undefined || secondCoin === undefined) return;
+        if (quantity <= 0 || value <= 0) return;
 
-        axios.post("http://localhost:8080/api/swap/trade", {
+        axios.post("http://localhost:8080/api/trade", null, {
             headers: { 'Access-Control-Allow-Origin': '*' },
             auth: { username: sessionStorage.getItem("username"), password: sessionStorage.getItem("password") },
             params: { from: firstCoin.id, to: secondCoin.id, amount: quantity }
         })
         .then((data) => {
-           setFirstCoin(null)
-           secondCoin(null)
+            console.log(data)
+           setFirstCoin(undefined)
+           setSecondCoin(undefined)
            setQuantity(0) 
         });
     }
