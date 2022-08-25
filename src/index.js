@@ -15,6 +15,7 @@ import CoinInfo from "./components/coinInfo/CoinInfo";
 import HistoryPage from "./pages/HistoryPage";
 import AccountPage from "./pages/AccountPage";
 import CustomersPage from "./pages/CustomersPage";
+import Retrieve from "./components/registration/Retrieve"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -50,6 +51,8 @@ ReactDOM.render(
           </GuardedRoute>
         }
       />
+
+      <Route path="/Retrieve" element={<Retrieve/>}></Route>
       <Route path="/History" element={<HistoryPage />}></Route>
       <Route path="/LogOut" element={<LogOut />} />
       <Route path="/AccountPage" element={<AccountPage />} />
