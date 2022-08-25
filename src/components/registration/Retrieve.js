@@ -87,7 +87,7 @@ const theme = createTheme({
   },
 });
 
-export default function SignIn() {
+export default function Retrive() {
   const [password, setPassword] = React.useState("");
   const [leyenda, setLeyenda] = React.useState("");
   const [errorpassword, setErrorPassword] = React.useState(false);
@@ -98,10 +98,9 @@ export default function SignIn() {
     event.preventDefault();
 
     let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
 
     axios
-      .get("http://localhost:8080/authentication/login?username=" + email + "&password=" + password, {
+      .post("http://localhost:8080/authentication/retrieve?mail=" + email, null, {
         //Test if the connection is established correctly
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -174,56 +173,19 @@ export default function SignIn() {
                 color: "white",
               }}
             />
-            <CssTextField
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (password.length > 7) {
-                  setErrorPassword(true);
-                  setLeyenda("La contraseña tiene mas de 8 caracteres");
-                } else {
-                  setErrorPassword(false);
-                  setLeyenda("");
-                }
-              }}
-              error={errorpassword}
-              helperText={leyenda}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recordarme"
-            />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Continuar
+              Enviar
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="Retrieve" variant="body2">
-                  Olvidó la contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/Register" variant="body2">
-                  {"No tienes una cuenta? Registrarse"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    
   );
 }
