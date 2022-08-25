@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 import {
   createTheme,
   ThemeProvider,
@@ -77,6 +79,8 @@ const Register = () => {
   const [password, setPassword] = React.useState("");
   const [leyenda, setLeyenda] = React.useState("");
   const [errorpassword, setErrorPassword] = React.useState(false);
+  const [state, setState] = React.useState(false);
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -90,17 +94,34 @@ const Register = () => {
         .email("Must be a valid email")
         .max(255)
         .required("Email is required"),
-      firstName: Yup.string().max(255).required("First name is required"),
-      lastName: Yup.string().max(255).required("Last name is required"),
       password: Yup.string()
-        .max(8, "Password cannot be longer than 8 characters")
         .required("Password is required"),
       policy: Yup.boolean().oneOf([true], "This field must be checked"),
     }),
-    onSubmit: () => {
-      router.push("/");
+    onSubmit: values => {
+      console.log(values);
+      sendRegistration(values);
     },
   });
+
+  const sendRegistration = (values) => {
+    axios
+      .post("http://localhost:8080/authentication/register", null, {
+        //Test if the connection is established correctly
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        params: { mail: values.email, username: values.firstName, password: values.password }
+      })
+      .then((data) => {
+        setState(true)
+      })
+      .catch((e) => setState(true));
+  }
+
+  if (state === true) {
+    return <Navigate to="/login"></Navigate>
+  }
 
   return (
     <>
@@ -199,6 +220,7 @@ const Register = () => {
                 <Button
                   color="primary"
                   disabled={formik.isSubmitting}
+                  onSubmit={() => console.log("woww")}
                   fullWidth
                   size="large"
                   type="submit"

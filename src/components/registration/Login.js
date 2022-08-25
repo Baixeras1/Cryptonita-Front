@@ -110,6 +110,7 @@ export default function SignIn() {
       .then((data) => {
         console.log(data.data)
         if (!data.data.result === "true") return;
+
         sessionStorage.setItem("username", email);
         sessionStorage.setItem("password", password);
         console.log("successfully");
@@ -119,7 +120,7 @@ export default function SignIn() {
   };
 
   if (sessionStorage.getItem("username") !== null) {  // Already logger in
-    return <Navigate to="/"></Navigate>
+    return <Navigate to="/Portfolio"></Navigate>
 }
 
   if (status === true) return <Navigate to="/" />;
@@ -175,16 +176,6 @@ export default function SignIn() {
               }}
             />
             <CssTextField
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (password.length > 7) {
-                  setErrorPassword(true);
-                  setLeyenda("La contraseña tiene mas de 8 caracteres");
-                } else {
-                  setErrorPassword(false);
-                  setLeyenda("");
-                }
-              }}
               error={errorpassword}
               helperText={leyenda}
               margin="normal"
