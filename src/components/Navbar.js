@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import CustomizedMenus from "./registration/MenuUsuario";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "Portfolio", "History"];
+const pages = ["Portfolio", "History"];
 
 const settings = ["Profile", "Account", "Wallet", "Exit"];
 
@@ -52,6 +52,8 @@ const ResponsiveAppBar = () => {
   const handleClose = () => {
     navigate("/AccountPage");
   };
+
+  console.log(sessionStorage.getItem("username") === null)
 
   return (
     <AppBar position="static">
@@ -115,11 +117,12 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {sessionStorage.getItem("username") === null ? null : (
+                pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+              )))}
             </Menu>
           </Box>
 
@@ -130,7 +133,7 @@ const ResponsiveAppBar = () => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            {pages.map((page) => (
+            {sessionStorage.getItem("username") === null ? null : pages.map((page) => (
               <Link to={`/${page}`}>
                 <Button
                   key={page}
