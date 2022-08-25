@@ -176,16 +176,6 @@ export default function SignIn() {
               }}
             />
             <CssTextField
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (password.length > 7) {
-                  setErrorPassword(true);
-                  setLeyenda("La contraseña tiene mas de 8 caracteres");
-                } else {
-                  setErrorPassword(false);
-                  setLeyenda("");
-                }
-              }}
               error={errorpassword}
               helperText={leyenda}
               margin="normal"

@@ -7,9 +7,9 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
 import MiniChart from "../coinList/MiniChart";
 import { useParams } from "react-router";
-import TradeViewChart from "react-crypto-chart";
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import TradingViewChart from "./TradingViewChart"
 
 const CoinInfo = () => {
   const [metadata, setMetadata] = useState(null);
@@ -20,6 +20,18 @@ const CoinInfo = () => {
 
   useEffect(() => {
     fetchGrahp();
+
+    /**const socket = SockJS('http://localhost:8080/wss');
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+      stompClient.subscribe('/crypto/' + coin, (data) => {
+        let json = JSON.parse(data.body);
+        setPrice(json.price)
+      });
+    }); 
+
+    return () => stompClient.disconnect(() => { }) **/
+
   }, []);
 
   console.log(price)
@@ -96,42 +108,7 @@ const CoinInfo = () => {
               {metadata.name} to USD Chart
             </Typography>
             <ActualChartContainer>
-              <TradeViewChart
-                containerStyle={{
-                  minHeight: "300px",
-                  minWidth: "400px",
-                  marginBottom: "30px",
-                }}
-                pair={metadata.symbol.toUpperCase() + "USDT"}
-                chartLayout={{
-                  layout: {
-                    backgroundColor: "transparent",
-                    textColor: "white",
-                  },
-                  grid: {
-                    vertLines: {
-                      color: "#838fa3",
-                    },
-                    horzLines: {
-                      color: "#838fa3",
-                    },
-                  },
-
-                  priceScale: {
-                    borderColor: "#485c7b",
-                  },
-                  timeScale: {
-                    borderColor: "#485c7b",
-                    timeVisible: true,
-                    secondsVisible: false,
-                  },
-                }}
-                candleStickConfig={{
-                  upColor: "red",
-                  borderDownColor: "transparent",
-                  borderUpColor: "transparent",
-                }}
-              />
+                    <TradingViewChart symbol={metadata.symbol} />
               {/* <MiniChart history={history} /> */}
             </ActualChartContainer>
           </ChartContainer>
@@ -153,7 +130,8 @@ const CoinInfo = () => {
                 marginTop: "20px",
               }}
             >
-              {metadata.description}
+              <div dangerouslySetInnerHTML={{ __html: metadata.description }} />
+              
             </Typography>
           </DescriptionContainer>
         </SecondPart>
