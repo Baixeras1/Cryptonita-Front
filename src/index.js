@@ -16,6 +16,7 @@ import HistoryPage from "./pages/HistoryPage";
 import AccountPage from "./pages/AccountPage";
 import CustomersPage from "./pages/CustomersPage";
 import Retrieve from "./components/registration/Retrieve"
+import Send from "./components/swap/Send"
 
 ReactDOM.render(
   <BrowserRouter>
@@ -48,6 +49,16 @@ ReactDOM.render(
           <GuardedRoute condition={NeedsRegistration()}>
             {" "}
             <Swap />{" "}
+          </GuardedRoute>
+        }
+      />
+
+      <Route
+        path="/Send"
+        element={
+          <GuardedRoute condition={NeedsRegistration()}>
+            {" "}
+            <Send />{" "}
           </GuardedRoute>
         }
       />
