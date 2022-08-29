@@ -109,8 +109,7 @@ export default function Retrive() {
       .then((data) => {
         console.log(data.data)
         if (!data.data.result === "true") return;
-        sessionStorage.setItem("username", email);
-        sessionStorage.setItem("password", password);
+
         console.log("successfully");
         setStatus(true);
       })

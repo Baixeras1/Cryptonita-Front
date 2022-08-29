@@ -233,12 +233,12 @@ const SignIn = () => {
               <Grid container>
                 <Grid item xs>
                   <Link href="Retrieve" variant="body2">
-                    Olvidó la contraseña?
+                    Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
                   <Link href="/Register" variant="body2">
-                    {"No tienes una cuenta? Registrarse"}
+                    {"You don't have an account? Register"}
                   </Link>
                 </Grid>
               </Grid>
