@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import axios from "axios";
 import { FixedSizeList } from 'react-window';
 import { Navigate } from "react-router-dom"
+import { FormHelperText } from "@mui/material";
 
 const Swap = () => {
 
@@ -20,6 +21,8 @@ const Swap = () => {
     const [value, setValue] = useState({ loading: false, value: '0.0' })
     const [openPopUp, setOpenPopUp] = useState({ open: false, who: '' })
     const [timeID, setTimeID] = useState()
+    const [status, setStatus] = useState(false)
+    const [error, setError] = useState()
 
     useEffect(() => {
         calculateValue()
@@ -108,17 +111,34 @@ const Swap = () => {
             auth: { username: sessionStorage.getItem("username"), password: sessionStorage.getItem("password") },
             params: { from: firstCoin.id, to: secondCoin.id, amount: quantity }
         })
-        .then((data) => {
-            console.log(data)
-           setFirstCoin(undefined)
-           setSecondCoin(undefined)
-           setQuantity(0) 
-        });
+            .then((data) => {
+                console.log(data)
+                console.log(data.data.status.error_message)
+
+                if (data.data.status.error_message.length > 0) {
+                    settingError(data.data.status.error_message)
+                } else {
+                    setFirstCoin(undefined)
+                    setSecondCoin(undefined)
+                    setQuantity(0)
+                    setStatus(true)
+                }
+            }).catch((e) => settingError(e));
+    }
+
+    const settingError = (msg) => {
+        setError(msg)
+        setTimeout(() => {
+            setError(undefined)
+        }, 5000);
     }
 
     if (sessionStorage.getItem("username") === null) {
         return <Navigate to="/"></Navigate>
     }
+
+    if (status === true)
+        return <Navigate to="/portfolio" />
 
     return (
         <>
@@ -151,6 +171,7 @@ const Swap = () => {
                                             {selectCoinFunction('second')}
                                         </SwapsInnerContainer>
                                     </SecondSwap>
+                                    {!error ? null : <FormHelperText error>{error}</FormHelperText>}
                                     <SwapButton onClick={swapNowHandler}>
                                         Swap Now
                                     </SwapButton>
@@ -199,7 +220,7 @@ const InnerContainer = styled.div`
 const SwapContainer = styled.div`
     background-color: rgb(25, 27, 31);
     width: 480px;
-    height: 300px;
+    min-height: 300px;
     border-radius: 20px;
     border: 1px solid transparent;
     box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;

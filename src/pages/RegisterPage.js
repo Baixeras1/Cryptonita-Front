@@ -80,12 +80,13 @@ const Register = () => {
   const [leyenda, setLeyenda] = React.useState("");
   const [errorpassword, setErrorPassword] = React.useState(false);
   const [state, setState] = React.useState(false);
+  const [error, setError] = React.useState()
 
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",
-      firstName: "",
+      username: "",
       password: "",
       policy: false,
     },
@@ -94,6 +95,8 @@ const Register = () => {
         .email("Must be a valid email")
         .max(255)
         .required("Email is required"),
+      username: Yup.string()
+        .required("Username is required"),
       password: Yup.string()
         .required("Password is required"),
       policy: Yup.boolean().oneOf([true], "This field must be checked"),
@@ -111,12 +114,27 @@ const Register = () => {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
-        params: { mail: values.email, username: values.firstName, password: values.password }
+        params: { mail: values.email, username: values.username, password: values.password }
       })
       .then((data) => {
-        setState(true)
+        console.log(data)
+        if (data.data.status.error_message.length > 0) {
+          settingError(data.data.status.error_message)
+        } else
+          setState(true)
       })
-      .catch((e) => setState(true));
+      .catch((e) => {
+        console.log(e)
+        settingError(e.response.data.status.error_message)
+      }
+      );
+  }
+
+  const settingError = (msg) => {
+    setError(msg)
+    setTimeout(() => {
+      setError(undefined)
+    }, 5000);
   }
 
   if (state === true) {
@@ -148,16 +166,16 @@ const Register = () => {
               </Box>
               <CssTextField
                 error={Boolean(
-                  formik.touched.firstName && formik.errors.firstName
+                  formik.touched.username && formik.errors.username
                 )}
                 fullWidth
-                helperText={formik.touched.firstName && formik.errors.firstName}
-                label="First Name"
+                helperText={formik.touched.username && formik.errors.username}
+                label="Username"
                 margin="normal"
-                name="firstName"
+                name="username"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                value={formik.values.firstName}
+                value={formik.values.username}
                 variant="outlined"
               />
               <CssTextField
@@ -216,10 +234,10 @@ const Register = () => {
               {Boolean(formik.touched.policy && formik.errors.policy) && (
                 <FormHelperText error>{formik.errors.policy}</FormHelperText>
               )}
+              {!error ? null : <FormHelperText error>{error}</FormHelperText>}
               <Box sx={{ py: 2 }}>
                 <Button
                   color="primary"
-                  disabled={formik.isSubmitting}
                   onSubmit={() => console.log("woww")}
                   fullWidth
                   size="large"

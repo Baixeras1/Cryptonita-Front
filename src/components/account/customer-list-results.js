@@ -31,7 +31,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   const getHistorial = () => {
     axios
       .get(
-        "http://localhost:8080/api/history?start=10-08-2022&end=25-08-2022",
+        "http://localhost:8080/api/history?start=10-08-2022&end=30-12-2022",
         {
           headers: { "Access-Control-Allow-Origin": "*" },
           auth: {

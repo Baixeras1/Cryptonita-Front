@@ -64,7 +64,7 @@ const Portfolio = () => {
             "Access-Control-Allow-Origin": "*",
           },
           auth: {
-            username: "sergio.bernal",
+            username: "Front-admin",
             password: "1234",
           },
         })
@@ -148,12 +148,10 @@ const Portfolio = () => {
                               </NameCol>
                             </div>
                           </div>
-                          <div style={{ flex: 1.7 }}>{coin.quantity}</div>
+                          <div style={{ flex: 1.7 }}>{coin.quantity.toFixed(4)}</div>
                           <div style={{ flex: 2 }}>
                             <NumberFormat
-                              value={(
-                                coin.quantity * coin.marketData.current_price
-                              ).toFixed(3)}
+                              value={(coin.quantity * coin.marketData.current_price).toFixed(3)}
                               displayType={"text"}
                               thousandSeparator={true}
                               prefix={"$"}

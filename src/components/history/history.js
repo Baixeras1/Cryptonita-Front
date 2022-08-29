@@ -291,7 +291,7 @@ export default function EnhancedTable() {
   const getHistory = () => {
     axios
       .get(
-        "http://localhost:8080/api/history?start=10-08-2022&end=25-08-2022",
+        "http://localhost:8080/api/history?start=10-08-2022&end=28-08-2022",
         {
           headers: { "Access-Control-Allow-Origin": "*" },
           auth: {

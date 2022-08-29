@@ -24,24 +24,6 @@ ReactDOM.render(
       <Route path="/" element={<Home />}></Route>
       <Route path="/Home" element={<Home />}></Route>
       <Route path="/coinInfo/:coin" element={<CoinInfo />} />
-      <Route
-        path="/Login"
-        element={
-          <GuardedRoute condition={NeedsRegistration()}>
-            {" "}
-            <Login />{" "}
-          </GuardedRoute>
-        }
-      />
-      <Route
-        path="/Register"
-        element={
-          <GuardedRoute condition={NeedsRegistration()}>
-            {" "}
-            <RegisterPage />{" "}
-          </GuardedRoute>
-        }
-      />
       <Route path="/Portfolio" element={<Portfolio></Portfolio>} />
       <Route
         path="/Swap"
@@ -63,11 +45,11 @@ ReactDOM.render(
         }
       />
 
+      <Route path="/login" element={<Login/>}></Route>
+      <Route path="/register" element={<RegisterPage/>}></Route>
       <Route path="/Retrieve" element={<Retrieve/>}></Route>
-      <Route path="/History" element={<HistoryPage />}></Route>
+      <Route path="/History" element={<CustomersPage />}></Route>
       <Route path="/LogOut" element={<LogOut />} />
-      <Route path="/AccountPage" element={<AccountPage />} />
-      <Route path="/CustomersPage" element={<CustomersPage />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
