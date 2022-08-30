@@ -1,9 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { MailchimpForm } from "./MailchimpForm";
-import logo from "../assets/img/logo.svg";
-import navIcon1 from "../assets/img/nav-icon1.svg";
-import navIcon2 from "../assets/img/nav-icon2.svg";
-import navIcon3 from "../assets/img/nav-icon3.svg";
+import logo from "../assets/img/logo.png";
+import navIcon1 from "../assets/img/nav-icon1.png";
+import navIcon2 from "../assets/img/nav-icon2.png";
+import navIcon3 from "../assets/img/nav-icon3.png";
+import Typography from "@mui/material/Typography";
 
 export const Footer = () => {
   return (
@@ -11,17 +11,33 @@ export const Footer = () => {
       <Container>
         <Row className="align-items-center">
           <Col size={12} sm={6}>
-            <img src={logo} alt="Logo" />
+            <Typography
+              variant="h4"
+              fontFamily="Digitalism"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Cryptonita
+            </Typography>
           </Col>
           <Col size={12} sm={6} className="text-center text-sm-end">
             <div className="social-icon">
-              <a href="#">
+              <a href="https://www.linkedin.com/in/crypto-nita-03753124a/">
                 <img src={navIcon1} alt="Icon" />
               </a>
-              <a href="#">
+              <a href="https://www.facebook.com/profile.php?id=100084786747314">
                 <img src={navIcon2} alt="Icon" />
               </a>
-              <a href="#">
+              <a href="https://www.instagram.com/">
                 <img src={navIcon3} alt="Icon" />
               </a>
             </div>

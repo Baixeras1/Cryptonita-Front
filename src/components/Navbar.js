@@ -64,6 +64,7 @@ const ResponsiveAppBar = () => {
         sx={{
           backgroundColor: "black",
           position: "fixed",
+          zIndex: "100",
         }}
       >
         <Toolbar disableGutters>

@@ -36,7 +36,7 @@ const Coin = ({ coin }) => {
   const getData = async () => {
     axios
       .get(
-        "http://192.168.96.173:8080/api/assets/getHistory?id=" +
+        "http://localhost:8080/api/assets/getHistory?id=" +
           coin.id +
           "&vs_currency=usd&days=7",
         {
