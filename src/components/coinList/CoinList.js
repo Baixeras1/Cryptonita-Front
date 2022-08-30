@@ -13,7 +13,7 @@ export default class Skills extends Component {
 
   getGames = () => {
     axios
-      .get("http://localhost:8080/api/markets", {
+      .get("http://192.168.96.173:8080/api/markets", {
         headers: { "Access-Control-Allow-Origin": "*" },
         auth: { username: "Front-admin", password: "1234" },
       })
