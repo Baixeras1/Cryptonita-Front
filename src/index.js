@@ -15,8 +15,9 @@ import CoinInfo from "./components/coinInfo/CoinInfo";
 import HistoryPage from "./pages/HistoryPage";
 import AccountPage from "./pages/AccountPage";
 import CustomersPage from "./pages/CustomersPage";
-import Retrieve from "./components/registration/Retrieve"
-import Send from "./components/swap/Send"
+import Retrieve from "./components/registration/Retrieve";
+import Send from "./components/swap/Send";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -45,9 +46,9 @@ ReactDOM.render(
         }
       />
 
-      <Route path="/login" element={<Login/>}></Route>
-      <Route path="/register" element={<RegisterPage/>}></Route>
-      <Route path="/Retrieve" element={<Retrieve/>}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/register" element={<RegisterPage />}></Route>
+      <Route path="/Retrieve" element={<Retrieve />}></Route>
       <Route path="/History" element={<CustomersPage />}></Route>
       <Route path="/LogOut" element={<LogOut />} />
     </Routes>

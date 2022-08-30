@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import styled from 'styled-components'
+import styled from "styled-components";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import CustomizedMenus from "./registration/MenuUsuario";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineDown } from 'react-icons/ai'
+import { AiOutlineDown } from "react-icons/ai";
 
 const pages = ["Portfolio", "History"];
 
@@ -55,7 +55,7 @@ const ResponsiveAppBar = () => {
     navigate("/AccountPage");
   };
 
-  console.log(sessionStorage.getItem("username") === null)
+  console.log(sessionStorage.getItem("username") === null);
 
   return (
     <AppBar position="static">
@@ -64,7 +64,6 @@ const ResponsiveAppBar = () => {
         sx={{
           backgroundColor: "black",
           position: "fixed",
-          zIndex: "100",
         }}
       >
         <Toolbar disableGutters>
@@ -92,30 +91,30 @@ const ResponsiveAppBar = () => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            {!sessionStorage.getItem("username") ? null : pages.map((page) => (
-              <Link to={`/${page}`}>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "white",
-                    display: "block",
-                    fontFamily: "Centra",
-                  }}
-                >
-                  {page}
-                </Button>
-              </Link>
-            ))}
+            {!sessionStorage.getItem("username")
+              ? null
+              : pages.map((page) => (
+                  <Link to={`/${page}`}>
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        fontFamily: "Centra",
+                      }}
+                    >
+                      {page}
+                    </Button>
+                  </Link>
+                ))}
           </Box>
           {sessionStorage.getItem("username") ? (
             <Box sx={{ textAlign: "right", flexGrow: 1 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Link to={"/Logout"}>
-                  <SelectCoinButton>
-                    Logout
-                  </SelectCoinButton>
+                  <SelectCoinButton>Logout</SelectCoinButton>
                 </Link>
               </IconButton>
             </Box>
@@ -123,9 +122,7 @@ const ResponsiveAppBar = () => {
             <Box sx={{ textAlign: "right", flexGrow: 1 }}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Link to={"/login"}>
-                  <SelectCoinButton>
-                    Login
-                  </SelectCoinButton>
+                  <SelectCoinButton>Login</SelectCoinButton>
                 </Link>
               </IconButton>
             </Box>
@@ -137,20 +134,19 @@ const ResponsiveAppBar = () => {
 };
 export default ResponsiveAppBar;
 
-
 const SelectCoinButton = styled.button`
-    background-color: rgb(33, 114, 229);
-    border-radius: 20px;
-    font-size: 18px;
-    color: white;
-    text-align: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 100px;
-    height: 38px;
-    transition: transform 2s ease 2s;
+  background-color: rgb(33, 114, 229);
+  border-radius: 20px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100px;
+  height: 38px;
+  transition: transform 2s ease 2s;
 
-    &:hover {
-        background-color: rgb(33, 114, 229, 0.8);
-      }
-`
+  &:hover {
+    background-color: rgb(33, 114, 229, 0.8);
+  }
+`;

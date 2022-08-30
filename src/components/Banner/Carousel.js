@@ -5,6 +5,7 @@ import AliceCarousel from "react-alice-carousel";
 import { Link } from "react-router-dom";
 import { TrendingCoins } from "../config/api";
 import { numberWithCommas } from "../CoinsTable";
+import "./Carousel.css";
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
@@ -50,7 +51,11 @@ const Carousel = () => {
           src={coin?.image}
           alt={coin.name}
           height="80"
-          style={{ marginBottom: 10 }}
+          style={{
+            marginTop: "80px",
+            height: "30%",
+            width: "30%",
+          }}
         />
         <span>
           {coin?.symbol}
@@ -58,7 +63,6 @@ const Carousel = () => {
           <span
             style={{
               color: profit > 0 ? "rgb(14, 203, 129)" : "red",
-              fontWeight: 500,
             }}
           >
             {profit && "+"}
