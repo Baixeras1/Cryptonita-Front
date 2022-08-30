@@ -7,9 +7,9 @@ import { MdKeyboardArrowUp } from "react-icons/md";
 import axios from "axios";
 import MiniChart from "../coinList/MiniChart";
 import { useParams } from "react-router";
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
-import TradingViewChart from "./TradingViewChart"
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+import TradingViewChart from "./TradingViewChart";
 
 const CoinInfo = () => {
   const [metadata, setMetadata] = useState(null);
@@ -31,10 +31,9 @@ const CoinInfo = () => {
     }); 
 
     return () => stompClient.disconnect(() => { }) **/
-
   }, []);
 
-  console.log(price)
+  console.log(price);
   const fetchGrahp = () => {
     axios
       .get("http://localhost:8080/api/assets/" + coin, {
@@ -49,7 +48,7 @@ const CoinInfo = () => {
 
   const imgStyle = { height: 40, width: 40 };
   console.log(metadata);
-  
+
   if (metadata === null) {
     return null;
   }
@@ -62,10 +61,7 @@ const CoinInfo = () => {
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <FirstTitleContainer>
-                <img
-                  src={metadata.image}
-                  style={imgStyle}
-                />
+                <img src={metadata.image} style={imgStyle} />
                 <Typography
                   variant="h4"
                   display="block"
@@ -108,7 +104,7 @@ const CoinInfo = () => {
               {metadata.name} to USD Chart
             </Typography>
             <ActualChartContainer>
-                    <TradingViewChart symbol={metadata.symbol} />
+              <TradingViewChart symbol={metadata.symbol} />
               {/* <MiniChart history={history} /> */}
             </ActualChartContainer>
           </ChartContainer>
@@ -131,7 +127,6 @@ const CoinInfo = () => {
               }}
             >
               <div dangerouslySetInnerHTML={{ __html: metadata.description }} />
-              
             </Typography>
           </DescriptionContainer>
         </SecondPart>

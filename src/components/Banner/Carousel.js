@@ -47,7 +47,7 @@ const Carousel = () => {
     let profit = coin?.price_change_percentage_24h >= 0;
 
     return (
-      <Link className={classes.carouselItem} to={`/coins/${coin.id}`}>
+      <div className={classes.carouselItem}>
         <img
           src={coin?.image}
           alt={coin.name}
@@ -73,7 +73,7 @@ const Carousel = () => {
         <span style={{ fontSize: 22, fontWeight: 500 }}>
           {symbol} {numberWithCommas(coin?.current_price.toFixed(2))}
         </span>
-      </Link>
+      </div>
     );
   });
 
