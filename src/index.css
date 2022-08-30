@@ -255,6 +255,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.marciano img {
+  width: 25%;
+  animation: updown 3s linear infinite;
+}
+.marciano {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
 .banner .tagline {
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -303,9 +314,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner button:hover svg {
   margin-left: 25px;
 }
-.banner img {
-  animation: updown 3s linear infinite;
-}
+
 @keyframes updown {
   0% {
     transform: translateY(-20px);

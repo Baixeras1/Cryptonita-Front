@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { TrendingCoins } from "../config/api";
 import { numberWithCommas } from "../CoinsTable";
 import "./Carousel.css";
+import headerImg from "../../assets/img/banner-bg.png";
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
@@ -86,19 +87,21 @@ const Carousel = () => {
   };
 
   return (
-    <div className={classes.carousel}>
-      <AliceCarousel
-        mouseTracking
-        infinite
-        autoPlayInterval={1000}
-        animationDuration={1500}
-        disableDotsControls
-        disableButtonsControls
-        responsive={responsive}
-        items={items}
-        autoPlay
-      />
-    </div>
+    <section className="banner" id="home">
+      <div className={classes.carousel}>
+        <AliceCarousel
+          mouseTracking
+          infinite
+          autoPlayInterval={1000}
+          animationDuration={1500}
+          disableDotsControls
+          disableButtonsControls
+          responsive={responsive}
+          items={items}
+          autoPlay
+        />
+      </div>
+    </section>
   );
 };
 

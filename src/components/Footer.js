@@ -1,5 +1,4 @@
 import { Container, Row, Col } from "react-bootstrap";
-import logo from "../assets/img/logo.png";
 import navIcon1 from "../assets/img/nav-icon1.png";
 import navIcon2 from "../assets/img/nav-icon2.png";
 import navIcon3 from "../assets/img/nav-icon3.png";
@@ -48,3 +47,4 @@ export const Footer = () => {
     </footer>
   );
 };
+export default Footer;
